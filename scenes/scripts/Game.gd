@@ -1,9 +1,23 @@
 extends Node2D
 
+class_name Game
 
+# ------------------------------------------------------------------------------
+# CONSTANTS
+# ------------------------------------------------------------------------------
 const TRAIT_PRIORITY: Array[String] = [
 	"TRAIT"
 ]
+
+const BASE_C1 = Color("#0d4599")
+const BASE_C2 = Color("#085298")
+const COLOR_CHANGE_WEIGHT = 0.1
+
+# ------------------------------------------------------------------------------
+# VARIABLES
+# ------------------------------------------------------------------------------
+var aim_c1: Color
+var aim_c2: Color
 
 var public_log: Array[Log] = []
 var private_log: Array[Log] = []
@@ -11,9 +25,27 @@ var private_log: Array[Log] = []
 var players: Array[Player] = []
 var winners: Array[Player] = []
 
+# ------------------------------------------------------------------------------
+# NODES
+# ------------------------------------------------------------------------------
+@onready var base = $Base
+@onready var screens = $Screens
+
+# Night
+@onready var night_start = $Screens/Night/Start
+
 
 func _ready():
+	base.material.set_shader_parameter("c1", BASE_C1) 
+	base.material.set_shader_parameter("c2", BASE_C2)
+	
 	game_loop()
+
+
+func _process(delta):
+	if aim_c1 != null and aim_c2 != null:
+		base.material.set_shader_parameter("c1", lerp(base.material.get_shader_parameter("c1"), aim_c1, COLOR_CHANGE_WEIGHT))
+		base.material.set_shader_parameter("c2", lerp(base.material.get_shader_parameter("c2"), aim_c2, COLOR_CHANGE_WEIGHT))
 
 
 func game_loop():
@@ -34,6 +66,10 @@ func game_loop():
 
 
 func night():
+	screens.set_phase("NIGHT")
+	
+	await night_start.display_start()
+	
 	var actions: Array[Array] = []
 	for player in players:
 		await player.present()
@@ -102,3 +138,8 @@ func show_winners(winners: Array[Player]):
 # ------------------------------------------------------------------------------
 func create_public_log():
 	pass
+
+
+func set_bg_color(c1: Color, c2: Color):
+	aim_c1 = c1
+	aim_c2 = c2

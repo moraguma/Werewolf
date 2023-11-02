@@ -1,17 +1,36 @@
-[gd_scene load_steps=5 format=3 uid="uid://b8tutg4n765i6"]
+[gd_scene load_steps=14 format=3 uid="uid://b8tutg4n765i6"]
 
 [ext_resource type="Script" path="res://scenes/scripts/Game.gd" id="1_aifow"]
 [ext_resource type="Shader" path="res://resources/shaders/ColoredBars.gdshader" id="2_rwacc"]
 [ext_resource type="Texture2D" uid="uid://bfy5ewt8i4hu1" path="res://resources/sprites/white.png" id="3_0hgii"]
+[ext_resource type="Script" path="res://scenes/scripts/Screens.gd" id="4_hx5m5"]
+[ext_resource type="Script" path="res://scenes/scripts/NightStart.gd" id="4_qyv5s"]
+[ext_resource type="Shader" path="res://resources/shaders/Outline.gdshader" id="6_3aibq"]
+[ext_resource type="Texture2D" uid="uid://n205jwbxu8ew" path="res://resources/sprites/high_res_emojis/moon.png" id="7_meepn"]
+[ext_resource type="Theme" uid="uid://cle8ocb3gsi5d" path="res://resources/themes/game.tres" id="8_oqwei"]
+[ext_resource type="Script" path="res://scenes/scripts/TranslatableRichTextLabel.gd" id="9_gsk2f"]
+[ext_resource type="Script" path="res://scenes/scripts/TranslatableButton.gd" id="10_ovsu1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3vbwi"]
 shader = ExtResource("2_rwacc")
 shader_parameter/c1 = Color(0.0509804, 0.270588, 0.6, 1)
-shader_parameter/c2 = Color(0.0666667, 0.309804, 0.67451, 1)
+shader_parameter/c2 = Color(0.0313726, 0.321569, 0.596078, 1)
 shader_parameter/d = 0.1
 shader_parameter/angle = -0.1
 shader_parameter/time_scale = 0.05
 shader_parameter/show = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mvl7h"]
+shader = ExtResource("6_3aibq")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/width = 13.0
+shader_parameter/pattern = 1
+shader_parameter/inside = true
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lqcpp"]
+bg_color = Color(1, 0.85098, 0.513726, 1)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_aifow")
@@ -23,6 +42,7 @@ rotation = 1.5708
 texture = ExtResource("3_0hgii")
 
 [node name="Screens" type="Node2D" parent="."]
+script = ExtResource("4_hx5m5")
 
 [node name="Night" type="Control" parent="Screens"]
 custom_minimum_size = Vector2(5, 0.045)
@@ -34,14 +54,73 @@ offset_left = -1080.0
 offset_bottom = 1920.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Start" type="Control" parent="Screens/Night"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("4_qyv5s")
+
+[node name="Moon" type="TextureRect" parent="Screens/Night/Start"]
+material = SubResource("ShaderMaterial_mvl7h")
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 202.0
+offset_right = 150.0
+offset_bottom = 502.0
+grow_horizontal = 2
+texture = ExtResource("7_meepn")
+
+[node name="Explanation" type="RichTextLabel" parent="Screens/Night/Start"]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 25.0
+offset_top = -364.5
+offset_right = -25.0
+offset_bottom = 364.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("8_oqwei")
+bbcode_enabled = true
+text = "[center]A noite começou! Todos os jogadores fecham os olhos e vão dormir.
+
+O aparelho deve ser passado de jogador em jogador em sentido horário para que cada um realize suas ações noturnas."
+fit_content = true
+script = ExtResource("9_gsk2f")
+text_code = "night_start"
+metadata/_edit_use_anchors_ = true
+
+[node name="Next" type="Button" parent="Screens/Night/Start"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = -465.0
+offset_right = -150.0
+offset_bottom = -315.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("8_oqwei")
+theme_override_colors/font_color = Color(0.101961, 0.0745098, 0.00392157, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_lqcpp")
+text = "COMEÇAR"
+script = ExtResource("10_ovsu1")
+text_code = "night_start_accept"
 
 [node name="Present" type="Control" parent="Screens/Night"]
 layout_mode = 1
@@ -50,6 +129,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Traits" type="Control" parent="Screens/Night"]
 layout_mode = 1
@@ -58,6 +138,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Action" type="Control" parent="Screens/Night"]
 layout_mode = 1
@@ -66,6 +147,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="DayAnnouncements" type="Node2D" parent="Screens"]
 
