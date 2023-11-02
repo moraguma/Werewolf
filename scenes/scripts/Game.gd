@@ -6,12 +6,12 @@ class_name Game
 # CONSTANTS
 # ------------------------------------------------------------------------------
 const TRAIT_PRIORITY: Array[String] = [
-	"TRAIT"
+	"Trait"
 ]
 
 const BASE_C1 = Color("#0d4599")
 const BASE_C2 = Color("#085298")
-const COLOR_CHANGE_WEIGHT = 0.1
+const COLOR_CHANGE_WEIGHT = 0.001
 
 # ------------------------------------------------------------------------------
 # VARIABLES
@@ -22,7 +22,7 @@ var aim_c2: Color
 var public_log: Array[Log] = []
 var private_log: Array[Log] = []
 
-var players: Array[Player] = []
+var players: Array[Player] = [Player.new(preload("res://resources/sprites/high_res_emojis/moon.png"), "André", BASE_C1, BASE_C2)]
 var winners: Array[Player] = []
 
 # ------------------------------------------------------------------------------
@@ -33,11 +33,15 @@ var winners: Array[Player] = []
 
 # Night
 @onready var night_start = $Screens/Night/Start
+@onready var night_present = $Screens/Night/Present
+@onready var night_traits = $Screens/Night/Traits
 
 
 func _ready():
 	base.material.set_shader_parameter("c1", BASE_C1) 
 	base.material.set_shader_parameter("c2", BASE_C2)
+	
+	players[0].traits = [Trait.new(), Trait.new(), Trait.new()]
 	
 	game_loop()
 
@@ -72,8 +76,8 @@ func night():
 	
 	var actions: Array[Array] = []
 	for player in players:
-		await player.present()
-		actions.append(await player.choose_action())
+		await night_present.present(player)
+		actions.append(await night_traits.choose_action(player))
 	
 	# TODO: Sort by priority
 	

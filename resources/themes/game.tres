@@ -6,5 +6,7 @@
 default_font = ExtResource("1_54uml")
 default_font_size = 54
 Button/font_sizes/font_size = 64
+HBoxContainer/constants/separation = 160
 RichTextLabel/colors/font_outline_color = Color(0, 0, 0, 1)
 RichTextLabel/constants/outline_size = 16
+VBoxContainer/constants/separation = 160
