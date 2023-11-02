@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8tutg4n765i6"]
+
+[ext_resource type="Script" path="res://scenes/scripts/Game.gd" id="1_aifow"]
+[ext_resource type="Shader" path="res://resources/shaders/ColoredBars.gdshader" id="2_rwacc"]
+[ext_resource type="Texture2D" uid="uid://bfy5ewt8i4hu1" path="res://resources/sprites/white.png" id="3_0hgii"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3vbwi"]
+shader = ExtResource("2_rwacc")
+shader_parameter/c1 = Color(0.0509804, 0.270588, 0.6, 1)
+shader_parameter/c2 = Color(0.0666667, 0.309804, 0.67451, 1)
+shader_parameter/d = 0.1
+shader_parameter/angle = -0.1
+shader_parameter/time_scale = 0.05
+shader_parameter/show = 2.0
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_aifow")
+
+[node name="Base" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_3vbwi")
+position = Vector2(540, 960)
+rotation = 1.5708
+texture = ExtResource("3_0hgii")
+
+[node name="Screens" type="Node2D" parent="."]
+
+[node name="Night" type="Control" parent="Screens"]
+custom_minimum_size = Vector2(5, 0.045)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1080.0
+offset_bottom = 1920.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Start" type="Control" parent="Screens/Night"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Present" type="Control" parent="Screens/Night"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Traits" type="Control" parent="Screens/Night"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Action" type="Control" parent="Screens/Night"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DayAnnouncements" type="Node2D" parent="Screens"]
+
+[node name="Discussion" type="Node2D" parent="Screens"]
+
+[node name="Voting" type="Node2D" parent="Screens"]
