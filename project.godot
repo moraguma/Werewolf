@@ -12,11 +12,12 @@ config_version=5
 
 config/name="Werewolf"
 config/features=PackedStringArray("4.1", "Mobile")
-config/icon="res://icon.svg"
+config/icon="res://resources/sprites/high_res_emojis/Wolf.png"
 
 [autoload]
 
 TranslationManager="*res://scenes/TranslationManager.tscn"
+EmojisDB="*res://addons/emojis-for-godot/emojis/emojis.gd"
 
 [display]
 
