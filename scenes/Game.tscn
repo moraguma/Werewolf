@@ -1,9 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://b8tutg4n765i6"]
+[gd_scene load_steps=21 format=3 uid="uid://b8tutg4n765i6"]
 
 [ext_resource type="Script" path="res://scenes/scripts/Game.gd" id="1_aifow"]
-[ext_resource type="Shader" path="res://resources/shaders/ColoredBars.gdshader" id="2_rwacc"]
+[ext_resource type="Shader" path="res://resources/shaders/DiscreteSunset.gdshader" id="2_ij3oe"]
 [ext_resource type="Texture2D" uid="uid://bfy5ewt8i4hu1" path="res://resources/sprites/white.png" id="3_0hgii"]
+[ext_resource type="Texture2D" uid="uid://b3y0heffkokaf" path="res://resources/sprites/whitesquare.png" id="4_16ib2"]
 [ext_resource type="Script" path="res://scenes/scripts/Screens.gd" id="4_hx5m5"]
+[ext_resource type="Shader" path="res://resources/shaders/Sun.gdshader" id="4_lc0vs"]
 [ext_resource type="Script" path="res://scenes/scripts/night/NightStart.gd" id="5_24oft"]
 [ext_resource type="Shader" path="res://resources/shaders/Outline.gdshader" id="6_3aibq"]
 [ext_resource type="Texture2D" uid="uid://n205jwbxu8ew" path="res://resources/sprites/high_res_emojis/moon.png" id="7_meepn"]
@@ -16,13 +18,25 @@
 [ext_resource type="Script" path="res://scenes/scripts/night/NightAction.gd" id="14_yyuvd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3vbwi"]
-shader = ExtResource("2_rwacc")
-shader_parameter/c1 = Color(0.0509804, 0.270588, 0.6, 1)
-shader_parameter/c2 = Color(0.0313726, 0.321569, 0.596078, 1)
-shader_parameter/d = 0.1
-shader_parameter/angle = -0.1
-shader_parameter/time_scale = 0.05
-shader_parameter/show = 2.0
+shader = ExtResource("2_ij3oe")
+shader_parameter/c1 = Color(0.541176, 0.0784314, 0.443137, 1)
+shader_parameter/c2 = Color(0.192157, 0.231373, 0.631373, 1)
+shader_parameter/ray_distance = 0.02
+shader_parameter/ray_width = 0.02
+shader_parameter/ray_length = 0.3
+shader_parameter/ray_spacing = 0.5
+shader_parameter/time_scale = 0.1
+shader_parameter/level_time_diff = 0.05
+shader_parameter/total_phases = 6
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h72ot"]
+shader = ExtResource("4_lc0vs")
+shader_parameter/c = Color(0.803922, 0.243137, 0.266667, 1)
+shader_parameter/radius = 0.4
+shader_parameter/ray_distance = 0.05
+shader_parameter/ray_width = 0.05
+shader_parameter/total_rays = 4
+shader_parameter/time_scale = 0.2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mvl7h"]
 shader = ExtResource("6_3aibq")
@@ -39,13 +53,27 @@ bg_color = Color(1, 0.85098, 0.513726, 1)
 [node name="Game" type="Node2D"]
 script = ExtResource("1_aifow")
 
-[node name="Base" type="Sprite2D" parent="."]
+[node name="BG" type="Node2D" parent="."]
+
+[node name="Sky" type="Sprite2D" parent="BG"]
 material = SubResource("ShaderMaterial_3vbwi")
 position = Vector2(540, 960)
-rotation = 1.5708
+rotation = 3.14159
 texture = ExtResource("3_0hgii")
 
+[node name="Sun" type="Sprite2D" parent="BG"]
+material = SubResource("ShaderMaterial_h72ot")
+position = Vector2(540, 1664)
+rotation = 3.14159
+texture = ExtResource("4_16ib2")
+
+[node name="Mountains" type="Polygon2D" parent="BG"]
+position = Vector2(-12, 0)
+color = Color(0.0784314, 0.0352941, 0.0941176, 1)
+polygon = PackedVector2Array(67, 1234, 177, 1562, 245, 1501, 431, 1747, 541, 1665, 659, 1715, 751, 1597, 833, 1701, 880, 1597, 915, 1644, 1051, 1284, 1109, 1466, 1101, 1967, -19, 1953, -1.69739, 1479.76)
+
 [node name="Screens" type="Node2D" parent="."]
+visible = false
 script = ExtResource("4_hx5m5")
 
 [node name="Night" type="Control" parent="Screens"]

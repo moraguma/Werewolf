@@ -28,7 +28,7 @@ var winners: Array[Player] = []
 # ------------------------------------------------------------------------------
 # NODES
 # ------------------------------------------------------------------------------
-@onready var base = $Base
+@onready var sky = $BG/Sky
 @onready var screens = $Screens
 
 # Night
@@ -38,8 +38,6 @@ var winners: Array[Player] = []
 
 
 func _ready():
-	base.material.set_shader_parameter("c1", BASE_C1) 
-	base.material.set_shader_parameter("c2", BASE_C2)
 	
 	players[0].traits = [Trait.new(), Trait.new(), Trait.new()]
 	
@@ -48,8 +46,8 @@ func _ready():
 
 func _process(delta):
 	if aim_c1 != null and aim_c2 != null:
-		base.material.set_shader_parameter("c1", lerp(base.material.get_shader_parameter("c1"), aim_c1, COLOR_CHANGE_WEIGHT))
-		base.material.set_shader_parameter("c2", lerp(base.material.get_shader_parameter("c2"), aim_c2, COLOR_CHANGE_WEIGHT))
+		sky.material.set_shader_parameter("c1", lerp(sky.material.get_shader_parameter("c1"), aim_c1, COLOR_CHANGE_WEIGHT))
+		sky.material.set_shader_parameter("c2", lerp(sky.material.get_shader_parameter("c2"), aim_c2, COLOR_CHANGE_WEIGHT))
 
 
 func game_loop():
