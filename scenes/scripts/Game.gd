@@ -22,7 +22,7 @@ const SUN_MIDDAY_POS = Vector2(540, 128)
 var public_log: Array[Log] = []
 var private_log: Array[Log] = []
 
-var players: Array[Player] = [Player.new(preload("res://resources/sprites/high_res_emojis/moon.png"), "André", ColorScheme.new(Color.AQUA, Color.AZURE, Color.BISQUE, Color.CHOCOLATE, Color.CRIMSON, Color.BLACK))]
+var players: Array[Player] = [Player.new(preload("res://resources/sprites/players/andre.png"), "André", ColorScheme.new(Color.AQUA, Color.AZURE, Color.BISQUE, Color.CHOCOLATE, Color.CRIMSON, Color.BLACK))]
 var winners: Array[Player] = []
 
 var color_scheme: ColorScheme
@@ -58,7 +58,7 @@ func _ready():
 	color_scheme.set_colors(sky, sun, mountains, THEME)
 	sun.position = SUN_SET_POS
 	
-	players[0].traits = [Trait.new(), Trait.new(), Trait.new()]
+	players[0].traits = [Trait.new(), Trait.new(), Trait.new(), Trait.new(), Trait.new(), Trait.new(), Trait.new(), Trait.new(), Trait.new()]
 	
 	game_loop()
 

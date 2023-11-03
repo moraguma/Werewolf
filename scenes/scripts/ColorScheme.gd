@@ -4,6 +4,8 @@ extends Resource
 class_name ColorScheme
 
 
+const STYLE_BOX_NAMES = ["normal", "disabled", "grabber", "grabber_highlight", "grabber_pressed"]
+const STYLE_BOX_TYPES = ["Button", "Button", "VScrollBar", "VScrollBar", "VScrollBar"]
 const CHANGE_WEIGHT = 0.01
 
 
@@ -32,9 +34,10 @@ func update_colors(sky: Sprite2D, sun: Sprite2D, mountains: Polygon2D, theme: Th
 	
 	mountains.color = lerp(mountains.color, mountains_color, CHANGE_WEIGHT)
 	
-	var button_style_box: StyleBoxFlat = theme.get_stylebox("normal", "Button")
-	button_style_box.bg_color = lerp(button_style_box.bg_color, button_base_color, CHANGE_WEIGHT)
-	theme.set_stylebox("normal", "Button", button_style_box)
+	for i in range(len(STYLE_BOX_NAMES)):
+		var style_box: StyleBoxFlat = theme.get_stylebox(STYLE_BOX_NAMES[i], STYLE_BOX_TYPES[i])
+		style_box.bg_color = lerp(style_box.bg_color, button_base_color, CHANGE_WEIGHT)
+		theme.set_stylebox(STYLE_BOX_NAMES[i], STYLE_BOX_TYPES[i], style_box)
 	
 	theme.set_color("font_color", "Button", lerp(theme.get_color("font_color", "Button"), font_color, CHANGE_WEIGHT))
 	theme.set_color("default_color", "RichTextLabel", lerp(theme.get_color("default_color", "RichTextLabel"), font_color, CHANGE_WEIGHT))
@@ -48,9 +51,10 @@ func set_colors(sky: Sprite2D, sun: Sprite2D, mountains: Polygon2D, theme: Theme
 	
 	mountains.color = mountains_color
 	
-	var button_style_box: StyleBoxFlat = theme.get_stylebox("normal", "Button")
-	button_style_box.bg_color = button_base_color
-	theme.set_stylebox("normal", "Button", button_style_box)
+	for i in range(len(STYLE_BOX_NAMES)):
+		var style_box: StyleBoxFlat = theme.get_stylebox(STYLE_BOX_NAMES[i], STYLE_BOX_TYPES[i])
+		style_box.bg_color = button_base_color
+		theme.set_stylebox(STYLE_BOX_NAMES[i], STYLE_BOX_TYPES[i], style_box)
 	
 	theme.set_color("font_color", "Button", font_color)
 	theme.set_color("default_color", "RichTextLabel", font_color)

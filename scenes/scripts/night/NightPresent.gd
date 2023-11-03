@@ -18,12 +18,12 @@ func present(player: Player):
 	player_name.text = "[center]" + player.name
 	base.set_color_scheme(player.color_scheme)
 	
-	next_button.disabled = true
+	next_button.hide()
 	
 	timer.start(RELEASE_TIME)
 	await timer.timeout
 	
-	next_button.disabled = false
+	next_button.show()
 	await next_button.pressed
 	
 	hide()

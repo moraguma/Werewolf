@@ -5,7 +5,7 @@ signal action_selected(action)
 
 
 @onready var player_name = $PlayerName
-@onready var traits_container = $TraitsContainer
+@onready var traits_container = $TraitsScroll/TraitsContainer
 @onready var action_display: ActionDisplay = $"../Action"
 
 
