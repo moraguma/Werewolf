@@ -16,7 +16,7 @@ func present(player: Player):
 	
 	player_icon.texture = player.icon
 	player_name.text = "[center]" + player.name
-	base.set_bg_color(player.c1, player.c2)
+	base.set_color_scheme(player.color_scheme)
 	
 	next_button.disabled = true
 	

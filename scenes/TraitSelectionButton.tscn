@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dilp8wjn4fwja"]
+[gd_scene load_steps=3 format=3 uid="uid://dilp8wjn4fwja"]
 
 [ext_resource type="Texture2D" uid="uid://n205jwbxu8ew" path="res://resources/sprites/high_res_emojis/moon.png" id="1_y8ame"]
 [ext_resource type="Script" path="res://scenes/scripts/TraitSelectionButton.gd" id="2_y2wlg"]
-[ext_resource type="Theme" uid="uid://cle8ocb3gsi5d" path="res://resources/themes/game.tres" id="3_exfnj"]
 
 [node name="TraitSelectionButton" type="TextureButton"]
 offset_right = 40.0
@@ -26,7 +25,6 @@ offset_right = 50.0
 offset_bottom = 152.0
 grow_horizontal = 2
 grow_vertical = 0
-theme = ExtResource("3_exfnj")
 theme_override_font_sizes/normal_font_size = 50
 bbcode_enabled = true
 text = "[center]Necromante"

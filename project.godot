@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Werewolf"
+run/main_scene="res://scenes/Game.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
 config/icon="res://resources/sprites/high_res_emojis/Wolf.png"
 
@@ -18,6 +19,10 @@ config/icon="res://resources/sprites/high_res_emojis/Wolf.png"
 
 TranslationManager="*res://scenes/TranslationManager.tscn"
 EmojisDB="*res://addons/emojis-for-godot/emojis/emojis.gd"
+SceneManager="*res://addons/jam_essentials/scenes/SceneManager.tscn"
+GlobalCamera="*res://addons/jam_essentials/scenes/GlobalCamera.tscn"
+SoundController="*res://addons/jam_essentials/scenes/SoundController.tscn"
+Globals="*res://addons/jam_essentials/scenes/Globals.tscn"
 
 [display]
 
@@ -29,7 +34,7 @@ window/handheld/orientation=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/emojis-for-godot/plugin.cfg")
+enabled=PackedStringArray("res://addons/emojis-for-godot/plugin.cfg", "res://addons/jam_essentials/plugin.cfg")
 
 [rendering]
 
