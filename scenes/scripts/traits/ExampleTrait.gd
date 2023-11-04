@@ -38,9 +38,15 @@ func select_player(player: Player, player_button: PlayerSelectionButton):
 func handle_interrupt(interrupt: Interrupt):
 	super.handle_interrupt(interrupt)
 	
-	if interrupt.type == Interrupt.Type.CONFIRM:
+	if interrupt.type == Interrupt.Type.CONFIRM and selection != null:
 		finish_action.emit(action.bind(selection))
 
 
 func action(player: Player):
+	var new_log: Log = LOG_SCENE.instantiate()
+	new_log.add_image(owner.icon)
+	new_log.add_text(owner.name + " deu exemplo em " + player.name)
+	new_log.add_image(player.icon)
+	game.create_public_log(new_log)
+	
 	print("Test selected - " + player.name)

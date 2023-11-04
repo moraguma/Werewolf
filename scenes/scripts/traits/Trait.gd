@@ -7,6 +7,11 @@ class_name Trait
 signal finish_action(result: Array)
 
 
+const LOG_SCENE = preload("res://scenes/Log.tscn")
+
+
+var game: Game
+var owner: Player
 var name = "Trait"
 var icon: Texture
 

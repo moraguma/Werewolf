@@ -16,6 +16,9 @@ var NIGHT_COLOR_SCHEME = ColorScheme.new(Color("#8a1471"), Color("#161b57"), Col
 const SUN_SET_POS = Vector2(540, 1664)
 const SUN_MIDDAY_POS = Vector2(540, 128)
 
+# Scenes -----------------------------------------------------------------------
+const LOG_SCENE = preload("res://scenes/Log.tscn")
+
 # --------------------------------------------------------------------------------------------------
 # VARIABLES
 # --------------------------------------------------------------------------------------------------
@@ -43,6 +46,7 @@ var color_scheme: ColorScheme
 
 # Day announcements ------------------------------------------------------------
 @onready var day_announcements_control = $Screens/DayAnnouncements
+@onready var day_announcements_next = $Screens/DayAnnouncements/Next
 
 # Discussion -------------------------------------------------------------------
 @onready var discussion_control = $Screens/Discussion
@@ -55,9 +59,12 @@ var color_scheme: ColorScheme
 func _ready():
 	for i in range(3):
 		var test_player = Player.new(preload("res://resources/sprites/players/andre.png"), "André", ColorScheme.new(Color.AQUA, Color.AZURE, Color.BISQUE, Color.CHOCOLATE, Color.CRIMSON, Color.BLACK))
-		var test_traits: Array[Trait] = [ExampleTrait.new(), ExampleTrait.new(), ExampleTrait.new()]
-		test_player.traits = test_traits
+		for j in range(3):
+			test_player.give_trait(ExampleTrait.new())
 		players.append(test_player)
+	
+	for player in players:
+		player.set_game(self)
 	
 	for control in [night_control, day_announcements_control, discussion_control, voting_control]:
 		control.theme = THEME
@@ -108,12 +115,21 @@ func night():
 
 
 func day_announcements():
-	for log in public_log:
-		# TODO - Create show logic
-		log.show() # Should add log info to a control node in Game
-	public_log = []
+	screens.set_phase("DAY_ANNOUNCEMENTS")
+	sun.set_aim(SUN_MIDDAY_POS)
 	
-	# Await player confirmation before ending
+	if len(public_log) == 0:
+		var new_log = LOG_SCENE.instantiate()
+		new_log.add_text(TranslationManager.get_translation("day_announcements_nothing"))
+		public_log.append(new_log)
+	
+	day_announcements_control.reset()
+	
+	await day_announcements_next.pressed
+	for log in public_log:
+		day_announcements_control.add_log(log)
+		await day_announcements_next.pressed
+	public_log = []
 
 
 func discussion():
@@ -162,8 +178,8 @@ func show_winners(winners: Array[Player]):
 # ------------------------------------------------------------------------------
 # PUBLIC METHODS
 # ------------------------------------------------------------------------------
-func create_public_log():
-	pass
+func create_public_log(log):
+	public_log.append(log)
 
 
 func set_color_scheme(color_scheme: ColorScheme):

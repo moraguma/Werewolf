@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://b68m2ys6ouo2q"]
+
+[ext_resource type="Material" uid="uid://bdkajv7h71teu" path="res://resources/shaders/materials/ColorSchemer.tres" id="1_433fo"]
+[ext_resource type="Theme" uid="uid://cle8ocb3gsi5d" path="res://resources/themes/game.tres" id="1_hy8qk"]
+[ext_resource type="Script" path="res://scenes/scripts/Log.gd" id="1_yyo77"]
+
+[node name="Log" type="ScrollContainer"]
+material = ExtResource("1_433fo")
+custom_minimum_size = Vector2(980, 150)
+offset_right = 980.0
+offset_bottom = 160.0
+theme = ExtResource("1_hy8qk")
+script = ExtResource("1_yyo77")
+
+[node name="Components" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(980, 150)
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
