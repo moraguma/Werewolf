@@ -73,4 +73,14 @@ text = "[center]André "
 fit_content = true
 scroll_active = false
 
+[node name="Count" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 70.0
+offset_bottom = 71.0
+theme = ExtResource("2_1dqeo")
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 2
+
 [connection signal="pressed" from="PlayerIcon/Button" to="." method="pressed"]

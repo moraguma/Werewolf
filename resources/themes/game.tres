@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=11 format=3 uid="uid://cle8ocb3gsi5d"]
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://cle8ocb3gsi5d"]
 
 [ext_resource type="FontFile" uid="uid://dk54uuvb1uy7u" path="res://resources/fonts/league-spartan/league-spartan-master/LeagueSpartan-Bold.otf" id="1_54uml"]
 
@@ -26,6 +26,13 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1llsf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ma4r2"]
+bg_color = Color(0.596078, 0.121569, 0.858824, 1)
+corner_radius_top_left = 35
+corner_radius_top_right = 35
+corner_radius_bottom_right = 35
+corner_radius_bottom_left = 35
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_py86a"]
 corner_radius_top_left = 20
@@ -61,6 +68,7 @@ Button/styles/hover = SubResource("StyleBoxEmpty_2mby0")
 Button/styles/normal = SubResource("StyleBoxFlat_kedkl")
 Button/styles/pressed = SubResource("StyleBoxEmpty_1llsf")
 HBoxContainer/constants/separation = 160
+Label/styles/normal = SubResource("StyleBoxFlat_ma4r2")
 RichTextLabel/colors/default_color = Color(0.956863, 0.882353, 0.984314, 1)
 VBoxContainer/constants/separation = 160
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_py86a")

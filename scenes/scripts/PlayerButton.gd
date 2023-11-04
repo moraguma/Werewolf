@@ -13,6 +13,7 @@ var p: Player
 @onready var player_icon: TextureRect = $PlayerIcon
 @onready var player_name: RichTextLabel = $PlayerName
 @onready var button: Button = $PlayerIcon/Button
+@onready var count: Label = $Count
 
 
 func setup(p: Player):
@@ -33,3 +34,11 @@ func disable():
 
 func enable():
 	button.disabled = false
+
+
+func display_count(value: int):
+	if value > 0:
+		count.show()
+		count.text = str(value)
+	else:
+		count.hide()

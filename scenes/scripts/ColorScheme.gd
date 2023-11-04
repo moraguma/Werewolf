@@ -4,8 +4,8 @@ extends Resource
 class_name ColorScheme
 
 
-const STYLE_BOX_NAMES = ["normal", "disabled", "grabber", "grabber_highlight", "grabber_pressed"]
-const STYLE_BOX_TYPES = ["Button", "Button", "VScrollBar", "VScrollBar", "VScrollBar"]
+const STYLE_BOX_NAMES = ["normal", "disabled", "grabber", "grabber_highlight", "grabber_pressed", "normal"]
+const STYLE_BOX_TYPES = ["Button", "Button", "VScrollBar", "VScrollBar", "VScrollBar", "Label"]
 
 const FONT_NAMES = ["font_color", "default_color"]
 const FONT_TYPES = ["Button", "RichTextLabel"]
