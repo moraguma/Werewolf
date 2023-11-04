@@ -1,0 +1,87 @@
+[gd_scene load_steps=10 format=3 uid="uid://dw8rieod11wsc"]
+
+[ext_resource type="Script" path="res://resources/fonts/scripts/PlayerButton.gd" id="1_8m1tb"]
+[ext_resource type="Shader" path="res://resources/shaders/CircleCut.gdshader" id="1_i16ae"]
+[ext_resource type="Texture2D" uid="uid://g0l5e1r7277v" path="res://resources/sprites/players/andre.png" id="1_uug81"]
+[ext_resource type="Theme" uid="uid://cle8ocb3gsi5d" path="res://resources/themes/game.tres" id="2_1dqeo"]
+[ext_resource type="Material" uid="uid://bdkajv7h71teu" path="res://resources/shaders/materials/ColorSchemer.tres" id="4_ypgp2"]
+[ext_resource type="Shader" path="res://resources/shaders/ColorSchemer.gdshader" id="5_o3gvf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mtgcg"]
+shader = ExtResource("1_i16ae")
+shader_parameter/radius = 0.5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2vcs8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cknsl"]
+shader = ExtResource("5_o3gvf")
+
+[node name="PlayerButton" type="Control"]
+custom_minimum_size = Vector2(250, 350)
+layout_mode = 3
+anchors_preset = 0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 249.0
+offset_bottom = 349.0
+script = ExtResource("1_8m1tb")
+
+[node name="PlayerIcon" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_mtgcg")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = 50.0
+offset_right = -25.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_uug81")
+
+[node name="Button" type="Button" parent="PlayerIcon"]
+material = ExtResource("4_ypgp2")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_1dqeo")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2vcs8")
+
+[node name="PlayerName" type="RichTextLabel" parent="."]
+material = SubResource("ShaderMaterial_cknsl")
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -76.0
+offset_bottom = 233.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme = ExtResource("2_1dqeo")
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[center]André "
+fit_content = true
+scroll_active = false
+
+[node name="Count" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 70.0
+offset_bottom = 71.0
+theme = ExtResource("2_1dqeo")
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[connection signal="pressed" from="PlayerIcon/Button" to="." method="pressed"]

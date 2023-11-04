@@ -1,12 +1,77 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cle8ocb3gsi5d"]
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://cle8ocb3gsi5d"]
 
 [ext_resource type="FontFile" uid="uid://dk54uuvb1uy7u" path="res://resources/fonts/league-spartan/league-spartan-master/LeagueSpartan-Bold.otf" id="1_54uml"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4d3pc"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 200
+corner_radius_top_right = 200
+corner_radius_bottom_right = 200
+corner_radius_bottom_left = 200
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_82tj3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2mby0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kedkl"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1llsf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ma4r2"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 35
+corner_radius_top_right = 35
+corner_radius_bottom_right = 35
+corner_radius_bottom_left = 35
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_py86a"]
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tejp1"]
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c0i7t"]
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ft1d4"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 20
+border_color = Color(0.8, 0.8, 0.8, 0)
 
 [resource]
 default_font = ExtResource("1_54uml")
 default_font_size = 54
+Button/colors/font_color = Color(1, 1, 1, 1)
 Button/font_sizes/font_size = 64
-HBoxContainer/constants/separation = 160
-RichTextLabel/colors/font_outline_color = Color(0, 0, 0, 1)
-RichTextLabel/constants/outline_size = 16
-VBoxContainer/constants/separation = 160
+Button/styles/disabled = SubResource("StyleBoxFlat_4d3pc")
+Button/styles/focus = SubResource("StyleBoxEmpty_82tj3")
+Button/styles/hover = SubResource("StyleBoxEmpty_2mby0")
+Button/styles/normal = SubResource("StyleBoxFlat_kedkl")
+Button/styles/pressed = SubResource("StyleBoxEmpty_1llsf")
+HBoxContainer/constants/separation = 80
+Label/styles/normal = SubResource("StyleBoxFlat_ma4r2")
+RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
+VBoxContainer/constants/separation = 20
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_py86a")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_tejp1")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_c0i7t")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_ft1d4")

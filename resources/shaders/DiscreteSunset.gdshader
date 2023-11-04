@@ -1,7 +1,7 @@
 shader_type canvas_item;
 
-uniform vec4 c1: source_color;
-uniform vec4 c2: source_color;
+uniform vec4 bottom_color: source_color;
+uniform vec4 top_color: source_color;
 
 uniform float ray_distance = 0.02;
 uniform float ray_width = 0.015;
@@ -45,7 +45,7 @@ void fragment() {
 	
 	for (int i = 0; i < total_phases; i++) {
 		if (y <= diff || y <= lower_border && y >= upper_border && is_valid_x(UV.x, y - diff - ray_distance, 1.0 + float(i) * level_time_diff)) {
-			COLOR = lerp(c1, c2, float(i) * diff);
+			COLOR = lerp(bottom_color, top_color, float(i) * diff);
 			break;
 		}
 		y -= diff;

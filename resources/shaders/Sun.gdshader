@@ -1,6 +1,6 @@
 shader_type canvas_item;
 
-uniform vec4 c: source_color;
+uniform vec4 color: source_color;
 uniform float radius = 0.4;
 uniform float ray_distance = 0.05;
 uniform float ray_width = 0.05;
@@ -43,7 +43,7 @@ void fragment() {
 	float upper_border = radius + ray_distance;
 	
 	if (d <= radius || d >= upper_border && d <= lower_border && is_angle_valid(angle, d - radius - ray_distance)) {
-		COLOR = c;
+		COLOR = color;
 	} else {
 		COLOR = vec4(0.0);
 	}
