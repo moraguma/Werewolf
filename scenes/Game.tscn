@@ -1,27 +1,26 @@
 [gd_scene load_steps=27 format=3 uid="uid://b8tutg4n765i6"]
 
-[ext_resource type="Script" path="res://scenes/scripts/Game.gd" id="1_aifow"]
+[ext_resource type="Script" path="res://resources/fonts/scripts/Game.gd" id="1_1ypop"]
 [ext_resource type="Shader" path="res://resources/shaders/DiscreteSunset.gdshader" id="2_ij3oe"]
 [ext_resource type="Texture2D" uid="uid://bfy5ewt8i4hu1" path="res://resources/sprites/white.png" id="3_0hgii"]
 [ext_resource type="Texture2D" uid="uid://b3y0heffkokaf" path="res://resources/sprites/whitesquare.png" id="4_16ib2"]
-[ext_resource type="Script" path="res://scenes/scripts/Screens.gd" id="4_hx5m5"]
 [ext_resource type="Shader" path="res://resources/shaders/Sun.gdshader" id="4_lc0vs"]
-[ext_resource type="Script" path="res://scenes/scripts/night/NightStart.gd" id="5_24oft"]
 [ext_resource type="Shader" path="res://resources/shaders/Wiggle.gdshader" id="6_6175e"]
-[ext_resource type="Script" path="res://scenes/scripts/FollowElement.gd" id="6_lttx7"]
-[ext_resource type="Texture2D" uid="uid://n205jwbxu8ew" path="res://resources/sprites/high_res_emojis/moon.png" id="7_meepn"]
+[ext_resource type="Script" path="res://resources/fonts/scripts/FollowElement.gd" id="6_cdqic"]
 [ext_resource type="Texture2D" uid="uid://b8ho2wukpvnn4" path="res://resources/sprites/blue_noise.png" id="7_opimw"]
 [ext_resource type="Theme" uid="uid://cle8ocb3gsi5d" path="res://resources/themes/game.tres" id="8_oqwei"]
-[ext_resource type="Script" path="res://scenes/scripts/TranslatableRichTextLabel.gd" id="9_gsk2f"]
-[ext_resource type="Script" path="res://scenes/scripts/TranslatableButton.gd" id="10_ovsu1"]
-[ext_resource type="Script" path="res://scenes/scripts/night/NightPresent.gd" id="11_g2a60"]
-[ext_resource type="Script" path="res://scenes/scripts/night/NightTraits.gd" id="12_lopa0"]
-[ext_resource type="Script" path="res://scenes/scripts/night/TraitsContainer.gd" id="13_hedpp"]
-[ext_resource type="Script" path="res://scenes/scripts/night/NightAction.gd" id="14_yyuvd"]
+[ext_resource type="Script" path="res://resources/fonts/scripts/Screens.gd" id="9_mhngn"]
+[ext_resource type="Script" path="res://resources/fonts/scripts/night/NightStart.gd" id="11_5b88c"]
+[ext_resource type="Material" uid="uid://bdkajv7h71teu" path="res://resources/shaders/materials/ColorSchemer.tres" id="13_neljh"]
+[ext_resource type="Script" path="res://resources/fonts/scripts/TranslatableRichTextLabel.gd" id="13_x70ce"]
+[ext_resource type="Script" path="res://resources/fonts/scripts/TranslatableButton.gd" id="14_u0scy"]
+[ext_resource type="Script" path="res://resources/fonts/scripts/night/NightPresent.gd" id="15_outhn"]
 [ext_resource type="Shader" path="res://resources/shaders/CircleCut.gdshader" id="16_n151q"]
 [ext_resource type="Texture2D" uid="uid://g0l5e1r7277v" path="res://resources/sprites/players/andre.png" id="17_tbj37"]
-[ext_resource type="PackedScene" uid="uid://vwwflvfvcivs" path="res://scenes/PlayersScroll.tscn" id="21_dkgp1"]
-[ext_resource type="PackedScene" uid="uid://dw8rieod11wsc" path="res://scenes/PlayerButton.tscn" id="22_bhmrp"]
+[ext_resource type="Script" path="res://resources/fonts/scripts/night/NightTraits.gd" id="18_wqsrg"]
+[ext_resource type="Script" path="res://resources/fonts/scripts/night/TraitsContainer.gd" id="19_vue33"]
+[ext_resource type="Script" path="res://resources/fonts/scripts/night/NightAction.gd" id="20_yjbma"]
+[ext_resource type="Shader" path="res://resources/shaders/ColorSchemer.gdshader" id="21_ba0ro"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3vbwi"]
 shader = ExtResource("2_ij3oe")
@@ -56,8 +55,11 @@ shader_parameter/NOISE_TEXTURE = ExtResource("7_opimw")
 shader = ExtResource("16_n151q")
 shader_parameter/radius = 0.5
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bdlhc"]
+shader = ExtResource("21_ba0ro")
+
 [node name="Game" type="Node2D"]
-script = ExtResource("1_aifow")
+script = ExtResource("1_1ypop")
 
 [node name="BG" type="Node2D" parent="."]
 
@@ -72,7 +74,7 @@ material = SubResource("ShaderMaterial_h72ot")
 position = Vector2(540, 128)
 rotation = 3.14159
 texture = ExtResource("4_16ib2")
-script = ExtResource("6_lttx7")
+script = ExtResource("6_cdqic")
 
 [node name="Mountains" type="Polygon2D" parent="BG"]
 position = Vector2(-12, 0)
@@ -85,7 +87,7 @@ offset_right = 1080.0
 offset_bottom = 1920.0
 
 [node name="Screens" type="Node2D" parent="."]
-script = ExtResource("4_hx5m5")
+script = ExtResource("9_mhngn")
 
 [node name="Night" type="Control" parent="Screens"]
 custom_minimum_size = Vector2(5, 0.045)
@@ -109,22 +111,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("5_24oft")
-
-[node name="Moon" type="TextureRect" parent="Screens/Night/Start"]
-visible = false
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -150.0
-offset_top = 202.0
-offset_right = 150.0
-offset_bottom = 502.0
-grow_horizontal = 2
-texture = ExtResource("7_meepn")
+script = ExtResource("11_5b88c")
 
 [node name="Explanation" type="RichTextLabel" parent="Screens/Night/Start"]
+material = ExtResource("13_neljh")
 clip_contents = false
 layout_mode = 1
 anchors_preset = -1
@@ -142,11 +132,12 @@ text = "[center]A noite começou! Todos os jogadores fecham os olhos e vão dorm
 
 O aparelho deve ser passado de jogador em jogador em sentido horário para que cada um realize suas ações noturnas."
 fit_content = true
-script = ExtResource("9_gsk2f")
+script = ExtResource("13_x70ce")
 text_code = "night_start"
 metadata/_edit_use_anchors_ = true
 
 [node name="Next" type="Button" parent="Screens/Night/Start"]
+material = ExtResource("13_neljh")
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -159,7 +150,7 @@ offset_bottom = -315.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "COMEÇAR"
-script = ExtResource("10_ovsu1")
+script = ExtResource("14_u0scy")
 text_code = "night_start_accept"
 
 [node name="Present" type="Control" parent="Screens/Night"]
@@ -171,7 +162,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("11_g2a60")
+script = ExtResource("15_outhn")
 
 [node name="PlayerIcon" type="TextureRect" parent="Screens/Night/Present"]
 material = SubResource("ShaderMaterial_i7lyr")
@@ -187,6 +178,7 @@ grow_horizontal = 2
 texture = ExtResource("17_tbj37")
 
 [node name="PlayerName" type="RichTextLabel" parent="Screens/Night/Present"]
+material = ExtResource("13_neljh")
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -202,6 +194,7 @@ text = "[center]André"
 fit_content = true
 
 [node name="Next" type="Button" parent="Screens/Night/Present"]
+material = ExtResource("13_neljh")
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -214,7 +207,7 @@ offset_bottom = -315.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "JOGAR"
-script = ExtResource("10_ovsu1")
+script = ExtResource("14_u0scy")
 text_code = "present_accept"
 
 [node name="Timer" type="Timer" parent="Screens/Night/Present"]
@@ -228,9 +221,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("12_lopa0")
+script = ExtResource("18_wqsrg")
 
 [node name="PlayerName" type="RichTextLabel" parent="Screens/Night/Traits"]
+material = ExtResource("13_neljh")
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -263,9 +257,10 @@ theme = ExtResource("8_oqwei")
 custom_minimum_size = Vector2(980, 0)
 layout_mode = 2
 alignment = 1
-script = ExtResource("13_hedpp")
+script = ExtResource("19_vue33")
 
 [node name="Action" type="Control" parent="Screens/Night"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -274,9 +269,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("8_oqwei")
-script = ExtResource("14_yyuvd")
+script = ExtResource("20_yjbma")
 
 [node name="Back" type="Button" parent="Screens/Night/Action"]
+material = SubResource("ShaderMaterial_bdlhc")
 layout_mode = 2
 offset_left = 50.0
 offset_top = 102.0
@@ -302,33 +298,6 @@ custom_minimum_size = Vector2(980, 0)
 layout_mode = 2
 alignment = 1
 
-[node name="PlayersScroll" parent="Screens/Night/Action/Scroll/Components" instance=ExtResource("21_dkgp1")]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Screens/Night/Action/Scroll/Components/PlayersScroll/PlayersContainer" index="0"]
-layout_mode = 2
-
-[node name="PlayerButton" parent="Screens/Night/Action/Scroll/Components/PlayersScroll/PlayersContainer/HBoxContainer" instance=ExtResource("22_bhmrp")]
-layout_mode = 2
-
-[node name="PlayerButton2" parent="Screens/Night/Action/Scroll/Components/PlayersScroll/PlayersContainer/HBoxContainer" instance=ExtResource("22_bhmrp")]
-layout_mode = 2
-
-[node name="PlayerButton3" parent="Screens/Night/Action/Scroll/Components/PlayersScroll/PlayersContainer/HBoxContainer" instance=ExtResource("22_bhmrp")]
-layout_mode = 2
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="Screens/Night/Action/Scroll/Components/PlayersScroll/PlayersContainer" index="1"]
-layout_mode = 2
-
-[node name="PlayerButton" parent="Screens/Night/Action/Scroll/Components/PlayersScroll/PlayersContainer/HBoxContainer2" instance=ExtResource("22_bhmrp")]
-layout_mode = 2
-
-[node name="PlayerButton2" parent="Screens/Night/Action/Scroll/Components/PlayersScroll/PlayersContainer/HBoxContainer2" instance=ExtResource("22_bhmrp")]
-layout_mode = 2
-
-[node name="PlayerButton3" parent="Screens/Night/Action/Scroll/Components/PlayersScroll/PlayersContainer/HBoxContainer2" instance=ExtResource("22_bhmrp")]
-layout_mode = 2
-
 [node name="DayAnnouncements" type="Control" parent="Screens"]
 layout_mode = 3
 anchors_preset = 0
@@ -345,5 +314,3 @@ anchors_preset = 0
 theme = ExtResource("8_oqwei")
 
 [connection signal="pressed" from="Screens/Night/Action/Back" to="Screens/Night/Action" method="go_back"]
-
-[editable path="Screens/Night/Action/Scroll/Components/PlayersScroll"]

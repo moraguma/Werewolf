@@ -20,6 +20,7 @@ func choose_action(player: Player) -> Callable:
 		button.connect("selected_trait", display_trait)
 	
 	var selected_action = await action_selected
+	hide()
 	
 	return selected_action
 

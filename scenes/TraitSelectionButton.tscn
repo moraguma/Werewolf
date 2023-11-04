@@ -1,14 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://dilp8wjn4fwja"]
+[gd_scene load_steps=5 format=3 uid="uid://dilp8wjn4fwja"]
 
+[ext_resource type="Script" path="res://resources/fonts/scripts/TraitSelectionButton.gd" id="1_iyegf"]
 [ext_resource type="Texture2D" uid="uid://n205jwbxu8ew" path="res://resources/sprites/high_res_emojis/moon.png" id="1_y8ame"]
-[ext_resource type="Script" path="res://scenes/scripts/TraitSelectionButton.gd" id="2_y2wlg"]
+[ext_resource type="Shader" path="res://resources/shaders/ColorSchemer.gdshader" id="3_yg46b"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6cbd0"]
+shader = ExtResource("3_yg46b")
 
 [node name="TraitSelectionButton" type="VBoxContainer"]
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 theme_override_constants/separation = 10
-script = ExtResource("2_y2wlg")
+script = ExtResource("1_iyegf")
 
 [node name="Button" type="TextureButton" parent="."]
 layout_mode = 2
@@ -19,6 +23,7 @@ texture_disabled = ExtResource("1_y8ame")
 texture_focused = ExtResource("1_y8ame")
 
 [node name="TraitName" type="RichTextLabel" parent="."]
+material = SubResource("ShaderMaterial_6cbd0")
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true

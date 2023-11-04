@@ -1,7 +1,59 @@
-extends Game
+extends Node2D
+
+class_name Game
+
+# --------------------------------------------------------------------------------------------------
+# CONSTANTS
+# --------------------------------------------------------------------------------------------------
+const TRAIT_PRIORITY: Array[String] = [
+	"Trait"
+]
+
+# Visual -----------------------------------------------------------------------
+const THEME = preload("res://resources/themes/game.tres")
+var NIGHT_COLOR_SCHEME = ColorScheme.new(Color("#8a1471"), Color("#161b57"), Color("#cd3e44"), Color("#140918"), Color("#501c40"), Color("#f4e1fb"))
+
+const SUN_SET_POS = Vector2(540, 1664)
+const SUN_MIDDAY_POS = Vector2(540, 128)
+
+# --------------------------------------------------------------------------------------------------
+# VARIABLES
+# --------------------------------------------------------------------------------------------------
+var public_log: Array[Log] = []
+var private_log: Array[Log] = []
+
+var players: Array[Player] = []
+var winners: Array[Player] = []
+
+var color_scheme: ColorScheme
+
+# --------------------------------------------------------------------------------------------------
+# NODES
+# --------------------------------------------------------------------------------------------------
+@onready var sky = $BG/Sky
+@onready var sun = $BG/Sun
+@onready var mountains = $BG/Mountains
+@onready var screens = $Screens
+
+# Night ------------------------------------------------------------------------
+@onready var night_control = $Screens/Night
+@onready var night_start = $Screens/Night/Start
+@onready var night_present = $Screens/Night/Present
+@onready var night_traits = $Screens/Night/Traits
+
+# Day announcements ------------------------------------------------------------
+@onready var day_announcements_control = $Screens/DayAnnouncements
+
+# Discussion -------------------------------------------------------------------
+@onready var discussion_control = $Screens/Discussion
+
+# Voting -----------------------------------------------------------------------
+@onready var voting_control = $Screens/Voting
+
+
 
 func _ready():
-	for i in range(10):
+	for i in range(3):
 		var test_player = Player.new(preload("res://resources/sprites/players/andre.png"), "André", ColorScheme.new(Color.AQUA, Color.AZURE, Color.BISQUE, Color.CHOCOLATE, Color.CRIMSON, Color.BLACK))
 		var test_traits: Array[Trait] = [ExampleTrait.new(), ExampleTrait.new(), ExampleTrait.new()]
 		test_player.traits = test_traits
@@ -14,7 +66,7 @@ func _ready():
 	sun.position = SUN_SET_POS
 	
 	
-	pass
+	game_loop()
 
 
 func _process(delta):
@@ -115,6 +167,7 @@ func create_public_log():
 
 
 func set_color_scheme(color_scheme: ColorScheme):
+	color_scheme.initialize_colors(self.color_scheme.curr_bottom_color, self.color_scheme.curr_top_color, self.color_scheme.curr_sun_color, self.color_scheme.curr_mountains_color, self.color_scheme.curr_base_color, self.color_scheme.curr_font_color)
 	self.color_scheme = color_scheme
 
 

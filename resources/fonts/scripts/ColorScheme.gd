@@ -4,12 +4,6 @@ extends Resource
 class_name ColorScheme
 
 
-const STYLE_BOX_NAMES = ["normal", "disabled", "grabber", "grabber_highlight", "grabber_pressed", "normal"]
-const STYLE_BOX_TYPES = ["Button", "Button", "VScrollBar", "VScrollBar", "VScrollBar", "Label"]
-
-const FONT_NAMES = ["font_color", "default_color"]
-const FONT_TYPES = ["Button", "RichTextLabel"]
-
 const CHANGE_WEIGHT = 0.01
 
 
@@ -20,7 +14,6 @@ var mountains_color: Color
 var base_color: Color
 var font_color: Color
 
-var initialized = false
 var curr_bottom_color: Color
 var curr_top_color: Color
 var curr_sun_color: Color
@@ -38,16 +31,13 @@ func _init(bottom_color: Color, top_color: Color, sun_color: Color, mountains_co
 	self.font_color = font_color
 
 
-func initialize_colors(sky: Sprite2D, sun: Sprite2D, mountains: Polygon2D, theme: Theme):
-	if not initialized:
-		initialized = true
-		
-		curr_bottom_color = sky.material.get_shader_parameter("bottom_color")
-		curr_top_color = sky.material.get_shader_parameter("top_color")
-		curr_sun_color = sun.material.get_shader_parameter("color")
-		curr_mountains_color = mountains.color
-		curr_base_color = theme.get_stylebox(STYLE_BOX_NAMES[0], STYLE_BOX_TYPES[0]).bg_color
-		curr_font_color = theme.get_color(FONT_NAMES[0], FONT_TYPES[0])
+func initialize_colors(bottom: Color, top: Color, sun: Color, mountains: Color, base: Color, font: Color):
+	curr_bottom_color = bottom
+	curr_top_color = top
+	curr_sun_color = sun
+	curr_mountains_color = mountains
+	curr_base_color = base
+	curr_font_color = font
 
 
 func update_targets(sky: Sprite2D, sun: Sprite2D, mountains: Polygon2D, theme: Theme):
@@ -56,18 +46,11 @@ func update_targets(sky: Sprite2D, sun: Sprite2D, mountains: Polygon2D, theme: T
 	sun.material.set_shader_parameter("color", curr_sun_color)
 	mountains.color = curr_mountains_color
 	
-	for i in range(len(STYLE_BOX_NAMES)):
-		var style_box: StyleBoxFlat = theme.get_stylebox(STYLE_BOX_NAMES[i], STYLE_BOX_TYPES[i])
-		style_box.bg_color = curr_base_color
-		theme.set_stylebox(STYLE_BOX_NAMES[i], STYLE_BOX_TYPES[i], style_box)
-	
-	for i in range(len(FONT_NAMES)):
-		theme.set_color(FONT_NAMES[i], FONT_TYPES[i], curr_font_color)
+	RenderingServer.global_shader_parameter_set("base", curr_base_color)
+	RenderingServer.global_shader_parameter_set("font", curr_font_color)
 
 
 func update_colors(sky: Sprite2D, sun: Sprite2D, mountains: Polygon2D, theme: Theme):
-	initialize_colors(sky, sun, mountains, theme)
-	
 	curr_bottom_color = lerp(curr_bottom_color, bottom_color, CHANGE_WEIGHT)
 	curr_top_color = lerp(curr_top_color, top_color, CHANGE_WEIGHT)
 	curr_sun_color = lerp(curr_sun_color, sun_color, CHANGE_WEIGHT)
@@ -79,8 +62,6 @@ func update_colors(sky: Sprite2D, sun: Sprite2D, mountains: Polygon2D, theme: Th
 
 
 func set_colors(sky: Sprite2D, sun: Sprite2D, mountains: Polygon2D, theme: Theme):
-	initialize_colors(sky, sun, mountains, theme)
-	
 	curr_bottom_color = bottom_color
 	curr_top_color = top_color
 	curr_sun_color = sun_color

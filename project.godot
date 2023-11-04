@@ -44,9 +44,9 @@ renderer/rendering_method="mobile"
 
 base={
 "type": "color",
-"value": Color(0, 0, 0, 1)
+"value": Color(0.207843, 0, 0, 1)
 }
-highlight={
+font={
 "type": "color",
-"value": Color(0, 0, 0, 1)
+"value": Color(0.796078, 0.560784, 0.462745, 1)
 }
