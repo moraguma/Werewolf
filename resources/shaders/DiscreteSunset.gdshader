@@ -10,7 +10,7 @@ uniform float ray_spacing = 0.5;
 uniform float time_scale = 1.0;
 uniform float level_time_diff = 0.05;
 
-uniform int total_phases: hint_range(2, 6, 1);
+uniform int total_phases: hint_range(2, 600, 1);
 
 
 float fmod(float x, float y) {

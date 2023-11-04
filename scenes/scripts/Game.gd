@@ -6,7 +6,8 @@ class_name Game
 # CONSTANTS
 # --------------------------------------------------------------------------------------------------
 const TRAIT_PRIORITY: Array[String] = [
-	"Trait"
+	"Trait",
+	"Example"
 ]
 
 # Visual -----------------------------------------------------------------------
@@ -102,16 +103,20 @@ func night():
 	
 	await night_start.display_start()
 	
-	var actions: Array[Callable] = []
+	var actions: Dictionary = {}
 	for player in players:
 		await night_present.present(player)
-		actions.append(await night_traits.choose_action(player))
+		var player_action: Callable = await night_traits.choose_action(player)
+		if player_action != null:
+			var t: Trait = player_action.get_object()
+			if not t.name in actions:
+				actions[t.name] = []
+			actions[t.name].append(player_action)
 	
-	# TODO: Sort by priority
-	
-	for action in actions:
-		if action != null:
-			action.call()
+	for priority in TRAIT_PRIORITY:
+		if priority in actions:
+			for action in actions[priority]:
+				action.call()
 
 
 func day_announcements():
