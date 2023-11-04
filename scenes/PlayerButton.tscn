@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://dw8rieod11wsc"]
 
-[ext_resource type="Script" path="res://resources/fonts/scripts/PlayerButton.gd" id="1_8m1tb"]
 [ext_resource type="Shader" path="res://resources/shaders/CircleCut.gdshader" id="1_i16ae"]
 [ext_resource type="Texture2D" uid="uid://g0l5e1r7277v" path="res://resources/sprites/players/andre.png" id="1_uug81"]
+[ext_resource type="Script" path="res://scenes/scripts/PlayerButton.gd" id="1_wt8jl"]
 [ext_resource type="Theme" uid="uid://cle8ocb3gsi5d" path="res://resources/themes/game.tres" id="2_1dqeo"]
 [ext_resource type="Material" uid="uid://bdkajv7h71teu" path="res://resources/shaders/materials/ColorSchemer.tres" id="4_ypgp2"]
 [ext_resource type="Shader" path="res://resources/shaders/ColorSchemer.gdshader" id="5_o3gvf"]
@@ -24,7 +24,7 @@ offset_left = -1.0
 offset_top = -1.0
 offset_right = 249.0
 offset_bottom = 349.0
-script = ExtResource("1_8m1tb")
+script = ExtResource("1_wt8jl")
 
 [node name="PlayerIcon" type="TextureRect" parent="."]
 material = SubResource("ShaderMaterial_mtgcg")
