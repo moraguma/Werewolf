@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://vwwflvfvcivs"]
+
+[ext_resource type="Theme" uid="uid://cle8ocb3gsi5d" path="res://resources/themes/game.tres" id="1_wg2x2"]
+[ext_resource type="Script" path="res://scenes/scripts/PlayersContainer.gd" id="2_gecbx"]
+[ext_resource type="Script" path="res://scenes/scripts/PlayersScroll.gd" id="2_xe3y7"]
+
+[node name="PlayersScroll" type="ScrollContainer"]
+custom_minimum_size = Vector2(980, 1167)
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -960.0
+offset_right = -100.0
+offset_bottom = 207.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_wg2x2")
+script = ExtResource("2_xe3y7")
+
+[node name="PlayersContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(980, 0)
+layout_mode = 2
+alignment = 1
+script = ExtResource("2_gecbx")

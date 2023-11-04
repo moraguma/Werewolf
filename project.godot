@@ -39,3 +39,14 @@ enabled=PackedStringArray("res://addons/emojis-for-godot/plugin.cfg", "res://add
 [rendering]
 
 renderer/rendering_method="mobile"
+
+[shader_globals]
+
+base={
+"type": "color",
+"value": Color(0, 0, 0, 1)
+}
+highlight={
+"type": "color",
+"value": Color(0, 0, 0, 1)
+}

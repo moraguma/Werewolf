@@ -6,6 +6,7 @@
 [node name="TraitSelectionButton" type="VBoxContainer"]
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 theme_override_constants/separation = 10
 script = ExtResource("2_y2wlg")
 
@@ -23,3 +24,5 @@ theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
 text = "[center]Necromante"
 fit_content = true
+
+[connection signal="pressed" from="Button" to="." method="pressed"]

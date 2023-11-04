@@ -20,10 +20,10 @@ corner_radius_bottom_left = 200
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kedkl"]
 bg_color = Color(0.313726, 0.109804, 0.25098, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1llsf"]
 
@@ -67,10 +67,10 @@ Button/styles/focus = SubResource("StyleBoxEmpty_82tj3")
 Button/styles/hover = SubResource("StyleBoxEmpty_2mby0")
 Button/styles/normal = SubResource("StyleBoxFlat_kedkl")
 Button/styles/pressed = SubResource("StyleBoxEmpty_1llsf")
-HBoxContainer/constants/separation = 160
+HBoxContainer/constants/separation = 80
 Label/styles/normal = SubResource("StyleBoxFlat_ma4r2")
 RichTextLabel/colors/default_color = Color(0.956863, 0.882353, 0.984314, 1)
-VBoxContainer/constants/separation = 160
+VBoxContainer/constants/separation = 20
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_py86a")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_tejp1")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_c0i7t")

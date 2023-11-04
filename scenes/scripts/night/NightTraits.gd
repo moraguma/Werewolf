@@ -9,7 +9,7 @@ signal action_selected(action)
 @onready var action_display: ActionDisplay = $"../Action"
 
 
-func choose_action(player: Player) -> Array:
+func choose_action(player: Player) -> Callable:
 	show()
 	
 	player_name.text = "[center]" + player.name
@@ -26,8 +26,13 @@ func choose_action(player: Player) -> Array:
 
 func display_trait(t: Trait):
 	hide()
-	var action = await t.display_actions(action_display)
+	action_display.start()
+	
+	t.display_actions(action_display)
+	var action = await t.finish_action
+	
+	action_display.finish()
 	show()
 	
-	if action[0] != null:
+	if action != null:
 		action_selected.emit(action)

@@ -4,11 +4,19 @@ extends Resource
 class_name Trait
 
 
+signal finish_action(result: Array)
+
+
 var name = "Trait"
-var icon: Texture = preload("res://resources/sprites/high_res_emojis/moon.png")
+var icon: Texture
 
 
-## Coroutine responsible for displaying possible trait actions. Should return an 
-## (Callable, Array) or (null, null), in the case of no action selected
-func display_actions(action: ActionDisplay) -> Array:
-	return [null, null]
+## Displays possible trait actions. Should emit the signal finish_action with
+## the selected action once the action has been selected
+func display_actions(action_display: ActionDisplay):
+	action_display.connect("interrupt", handle_interrupt)
+
+
+func handle_interrupt(interrupt: Interrupt):
+	if interrupt.type == Interrupt.Type.EXIT:
+		finish_action.emit(null)

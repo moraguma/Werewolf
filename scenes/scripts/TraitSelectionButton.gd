@@ -26,5 +26,5 @@ func setup(t: Trait):
 	trait_name.text = "[center]" + t.name
 
 
-func _pressed():
+func pressed():
 	selected_trait.emit(t)
