@@ -476,7 +476,118 @@ text_code = "discussion_vote"
 [node name="Voting" type="Control" parent="Screens"]
 layout_mode = 3
 anchors_preset = 0
+offset_top = -1920.0
+offset_right = 1080.0
 theme = ExtResource("8_oqwei")
+
+[node name="Start" type="Control" parent="Screens/Voting"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("5_24oft")
+
+[node name="Explanation" type="RichTextLabel" parent="Screens/Voting/Start"]
+material = ExtResource("13_neljh")
+clip_contents = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.270833
+anchor_right = 1.0
+anchor_bottom = 0.270833
+offset_left = 25.0
+offset_top = -364.5
+offset_right = -25.0
+offset_bottom = 364.5
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center]Hora de votar! Um jogador deverá ser mandado para a forca
+
+O aparelho deve ser passado de jogador em jogador em sentido horário para que cada um vote secretamente em quem deve ir para a forca"
+fit_content = true
+script = ExtResource("9_gsk2f")
+text_code = "voting_start"
+metadata/_edit_use_anchors_ = true
+
+[node name="Next" type="Button" parent="Screens/Voting/Start"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = -465.0
+offset_right = -150.0
+offset_bottom = -315.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "COMEÇAR"
+script = ExtResource("10_ovsu1")
+text_code = "voting_start"
+
+[node name="Present" type="Control" parent="Screens/Voting"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("11_g2a60")
+
+[node name="PlayerIcon" type="TextureRect" parent="Screens/Voting/Present"]
+material = SubResource("ShaderMaterial_i7lyr")
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 202.0
+offset_right = 150.0
+offset_bottom = 502.0
+grow_horizontal = 2
+texture = ExtResource("17_tbj37")
+
+[node name="PlayerName" type="RichTextLabel" parent="Screens/Voting/Present"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -410.0
+offset_bottom = -342.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 70
+bbcode_enabled = true
+text = "[center]André"
+fit_content = true
+
+[node name="Next" type="Button" parent="Screens/Voting/Present"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = -465.0
+offset_right = -150.0
+offset_bottom = -315.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "JOGAR"
+script = ExtResource("10_ovsu1")
+text_code = "night_present_accept"
+
+[node name="Timer" type="Timer" parent="Screens/Voting/Present"]
 
 [connection signal="pressed" from="Screens/Night/Action/Back" to="Screens/Night/Action" method="go_back"]
 [connection signal="timeout" from="Screens/Discussion/Timer" to="Screens/Discussion" method="end"]

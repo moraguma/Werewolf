@@ -9,5 +9,9 @@
 
     "discussion_explanation": "[center]Nem todos são quem dizem ser...\n\nA vila discutirá por um período de tempo sobre os acontecimentos da noite anterior. Após este período, será realizada uma votação para decidir quem será levado à forca...",
     "discussion_extra": "+ 30 SEGUNDOS",
-    "discussion_vote": "VOTAR"
+    "discussion_vote": "VOTAR",
+
+    "voting_start": "[center]Hora de votar! Um jogador deverá ser mandado para a forca\n\nO aparelho deve ser passado de jogador em jogador em sentido horário para que cada um vote secretamente em quem deve ir para a forca",
+    "voting_start_accept": "COMEÇAR",
+    "voting_present_accept": "VOTAR"
 }
