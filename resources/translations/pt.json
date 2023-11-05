@@ -5,7 +5,10 @@
     
     "day_announcements_tonight": "[center]Hoje a noite...",
     "day_announcements_nothing": "Nada aconteceu!",
-    "day_announcements_next": "PRÓXIMO",
+
+    "voting_announcements_start": "[center]Hoje...",
+
+    "announcements_next": "PRÓXIMO",
 
     "discussion_explanation": "[center]Nem todos são quem dizem ser...\n\nA vila discutirá por um período de tempo sobre os acontecimentos da noite anterior. Após este período, será realizada uma votação para decidir quem será levado à forca...",
     "discussion_extra": "+ 30 SEGUNDOS",
@@ -16,5 +19,9 @@
     "voting_present_accept": "VOTAR",
     "voting_vote": "VOTAR",
     "voting_skip": "PULAR",
-    "voting_explanation": "[center]Escolha o jogador que deve ir para a forca"
+    "voting_explanation": "[center]Escolha o jogador que deve ir para a forca",
+    "voting_tie": "A votação terminou em um empate",
+    "voting_result": "A vila votou em ",
+
+    "died_at_gallows": " morreu na forca"
 }

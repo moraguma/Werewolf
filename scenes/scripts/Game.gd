@@ -47,8 +47,8 @@ var color_scheme: ColorScheme
 @onready var night_traits = $Screens/Night/Traits
 
 # Day announcements ------------------------------------------------------------
-@onready var day_announcements_control = $Screens/DayAnnouncements
-@onready var day_announcements_next = $Screens/DayAnnouncements/Next
+@onready var announcements_control = $Screens/Announcements
+@onready var announcements_next = $Screens/Announcements/Next
 
 # Discussion -------------------------------------------------------------------
 @onready var discussion_control = $Screens/Discussion
@@ -70,7 +70,7 @@ func _ready():
 	for player in players:
 		player.set_game(self)
 	
-	for control in [night_control, day_announcements_control, discussion_control, voting_control]:
+	for control in [night_control, announcements_control, discussion_control, voting_control]:
 		control.theme = THEME
 	color_scheme = NIGHT_COLOR_SCHEME
 	color_scheme.set_colors(sky, sun, mountains, THEME)
@@ -86,9 +86,10 @@ func _process(delta):
 func game_loop():
 	var phases: Array[Callable] = [
 		night,
-		day_announcements,
+		announcements,
 		discussion,
-		voting
+		voting,
+		announcements
 	]
 	
 	while winners == []:
@@ -109,36 +110,39 @@ func night():
 	
 	var actions: Dictionary = {}
 	for player in players:
-		await night_present.present(player)
-		var player_action: Callable = await night_traits.choose_action(player)
-		if player_action != null:
-			var t: Trait = player_action.get_object()
-			if not t.name in actions:
-				actions[t.name] = []
-			actions[t.name].append(player_action)
+		if player.alive:
+			await night_present.present(player)
+			var player_action: Callable = await night_traits.choose_action(player)
+			if player_action != null:
+				var t: Trait = player_action.get_object()
+				if not t.name in actions:
+					actions[t.name] = []
+				actions[t.name].append(player_action)
 	
 	for priority in TRAIT_PRIORITY:
 		if priority in actions:
 			for action in actions[priority]:
 				action.call()
+	
+	announcements_control.set_text(TranslationManager.get_translation("day_announcements_tonight"))
 
 
-func day_announcements():
-	screens.set_phase("DAY_ANNOUNCEMENTS")
+func announcements():
+	screens.set_phase("ANNOUNCEMENTS")
 	sun.set_aim(SUN_MIDDAY_POS)
 	set_color_scheme(DAY_COLOR_SCHEME)
 	
 	if len(public_log) == 0:
 		var new_log = LOG_SCENE.instantiate()
-		new_log.add_text(TranslationManager.get_translation("day_announcements_nothing"))
+		new_log.add_text(TranslationManager.get_translation("announcements_nothing"))
 		public_log.append(new_log)
 	
-	day_announcements_control.reset()
+	announcements_control.reset()
 	
-	await day_announcements_next.pressed
+	await announcements_next.pressed
 	for log in public_log:
-		day_announcements_control.add_log(log)
-		await day_announcements_next.pressed
+		announcements_control.add_log(log)
+		await announcements_next.pressed
 	public_log = []
 
 
@@ -154,12 +158,13 @@ func voting():
 	var votable_players: Array[Player] = get_votable_players()
 	var votes: Dictionary = {}
 	for player in players:
-		await voting_present.present(player)
-		var vote: Player = await voting_vote.vote(player, votable_players)
-		if vote != null:
-			if not vote in votes:
-				votes[vote] = 0
-			votes[vote] += 1
+		if player.alive:
+			await voting_present.present(player)
+			var vote: Player = await voting_vote.vote(player, votable_players)
+			if vote != null:
+				if not vote in votes:
+					votes[vote] = 0
+				votes[vote] += 1
 	
 	var max_votes = 0
 	var elected: Array[Player] = []
@@ -171,12 +176,17 @@ func voting():
 			elected.append(player)
 	
 	if len(elected) != 1:
-		# TODO - Show draw screen
-		# TODO - Give player election if they should win on draw
-		pass
+		var draw_log: Log = LOG_SCENE.instantiate()
+		draw_log.add_text(TranslationManager.get_translation("voting_tie"))
+		create_public_log(draw_log)
 	else: 
-		# TODO - Show elected player (elected[0])
-		pass
+		var result_log: Log = LOG_SCENE.instantiate()
+		result_log.add_image(elected[0].icon)
+		result_log.add_text(TranslationManager.get_translation("voting_result") + elected[0].name)
+		create_public_log(result_log)
+		elected[0].win_election()
+	
+	announcements_control.set_text(TranslationManager.get_translation("voting_announcements_start"))
 
 
 func show_winners(winners: Array[Player]):

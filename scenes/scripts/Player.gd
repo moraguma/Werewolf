@@ -4,6 +4,9 @@ extends Resource
 class_name Player
 
 
+const LOG_SCENE = preload("res://scenes/Log.tscn")
+
+
 var icon: Texture
 var name: String
 var game: Game
@@ -33,3 +36,13 @@ func set_game(game: Game):
 	
 	for t in traits:
 		t.game = game
+
+
+func win_election():
+	var new_log: Log = LOG_SCENE.instantiate()
+	new_log.add_image(icon)
+	new_log.add_text(name + TranslationManager.get_translation("died_at_gallows"))
+	game.create_public_log(new_log)
+	
+	alive = false
+	votable = false

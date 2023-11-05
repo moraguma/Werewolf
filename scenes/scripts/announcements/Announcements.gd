@@ -2,6 +2,11 @@ extends Control
 
 
 @onready var components = $Scroll/Components
+@onready var opening = $Opening
+
+
+func set_text(text):
+	opening.text = text
 
 
 func reset():
