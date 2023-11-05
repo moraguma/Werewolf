@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://b8tutg4n765i6"]
+[gd_scene load_steps=31 format=3 uid="uid://b8tutg4n765i6"]
 
 [ext_resource type="Script" path="res://scenes/scripts/Game.gd" id="1_aifow"]
 [ext_resource type="Shader" path="res://resources/shaders/DiscreteSunset.gdshader" id="2_ij3oe"]
@@ -23,6 +23,8 @@
 [ext_resource type="Shader" path="res://resources/shaders/ColorSchemer.gdshader" id="21_ba0ro"]
 [ext_resource type="Script" path="res://scenes/scripts/day_announcements/DayAnnouncements.gd" id="22_e7wtx"]
 [ext_resource type="Script" path="res://scenes/scripts/discussion/Discussion.gd" id="23_tr3y8"]
+[ext_resource type="Script" path="res://scenes/scripts/voting/Vote.gd" id="24_1i3u3"]
+[ext_resource type="PackedScene" uid="uid://vwwflvfvcivs" path="res://scenes/PlayersScroll.tscn" id="25_k8sq3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3vbwi"]
 shader = ExtResource("2_ij3oe")
@@ -522,16 +524,17 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 150.0
-offset_top = -465.0
+offset_top = -193.0
 offset_right = -150.0
-offset_bottom = -315.0
+offset_bottom = -43.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "COMEÇAR"
 script = ExtResource("10_ovsu1")
-text_code = "voting_start"
+text_code = "voting_start_accept"
 
 [node name="Present" type="Control" parent="Screens/Voting"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -589,7 +592,61 @@ text_code = "night_present_accept"
 
 [node name="Timer" type="Timer" parent="Screens/Voting/Present"]
 
+[node name="Vote" type="Control" parent="Screens/Voting"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("24_1i3u3")
+
+[node name="PlayersScroll" parent="Screens/Voting/Vote" instance=ExtResource("25_k8sq3")]
+layout_mode = 1
+offset_left = 50.0
+offset_top = -744.0
+offset_right = -50.0
+offset_bottom = 423.0
+
+[node name="Vote" type="Button" parent="Screens/Voting/Vote"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = -489.0
+offset_right = -150.0
+offset_bottom = -289.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "VOTAR"
+script = ExtResource("10_ovsu1")
+text_code = "voting_vote"
+
+[node name="Skip" type="Button" parent="Screens/Voting/Vote"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = -257.0
+offset_right = -150.0
+offset_bottom = -57.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "PULAR"
+script = ExtResource("10_ovsu1")
+text_code = "voting_skip"
+
 [connection signal="pressed" from="Screens/Night/Action/Back" to="Screens/Night/Action" method="go_back"]
 [connection signal="timeout" from="Screens/Discussion/Timer" to="Screens/Discussion" method="end"]
 [connection signal="pressed" from="Screens/Discussion/More" to="Screens/Discussion" method="add_time"]
 [connection signal="pressed" from="Screens/Discussion/Vote" to="Screens/Discussion" method="end"]
+[connection signal="pressed" from="Screens/Voting/Vote/Vote" to="Screens/Voting/Vote" method="confirm_vote"]
+[connection signal="pressed" from="Screens/Voting/Vote/Skip" to="Screens/Voting/Vote" method="skip_vote"]

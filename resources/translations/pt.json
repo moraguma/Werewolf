@@ -13,5 +13,8 @@
 
     "voting_start": "[center]Hora de votar! Um jogador deverá ser mandado para a forca\n\nO aparelho deve ser passado de jogador em jogador em sentido horário para que cada um vote secretamente em quem deve ir para a forca",
     "voting_start_accept": "COMEÇAR",
-    "voting_present_accept": "VOTAR"
+    "voting_present_accept": "VOTAR",
+    "voting_vote": "VOTAR",
+    "voting_skip": "PULAR",
+    "voting_explanation": "[center]Escolha o jogador que deve ir para a forca"
 }

@@ -12,6 +12,7 @@ var color_scheme: ColorScheme
 var traits: Array[Trait] = []
 
 var alive = true
+var votable = true
 
 
 func _init(icon: Texture, name: String, color_scheme: ColorScheme):

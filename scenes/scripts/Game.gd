@@ -55,7 +55,9 @@ var color_scheme: ColorScheme
 
 # Voting -----------------------------------------------------------------------
 @onready var voting_control = $Screens/Voting
-
+@onready var voting_start = $Screens/Voting/Start
+@onready var voting_present = $Screens/Voting/Present
+@onready var voting_vote = $Screens/Voting/Vote
 
 
 func _ready():
@@ -146,9 +148,14 @@ func discussion():
 
 
 func voting():
+	screens.set_phase("VOTING")
+	await voting_start.display_start()
+	
+	var votable_players: Array[Player] = get_votable_players()
 	var votes: Dictionary = {}
 	for player in players:
-		var vote: Player = await player.ask_for_vote()
+		await voting_present.present(player)
+		var vote: Player = await voting_vote.vote(player, votable_players)
 		if vote != null:
 			if not vote in votes:
 				votes[vote] = 0
@@ -197,6 +204,10 @@ func get_conditioned_players(players: Array[Player], condition_name: String, val
 		if player.get(condition_name) == value:
 			conditioned_players.append(player)
 	return conditioned_players
+
+
+func get_votable_players() -> Array[Player]:
+	return get_conditioned_players(players, "votable", true)
 
 
 func get_alive_players() -> Array[Player]:
