@@ -44,9 +44,9 @@ renderer/rendering_method="mobile"
 
 base={
 "type": "color",
-"value": Color(0.207843, 0, 0, 1)
+"value": Color(0.996078, 0.890196, 0.772549, 1)
 }
 font={
 "type": "color",
-"value": Color(0.796078, 0.560784, 0.462745, 1)
+"value": Color(0.0627451, 0.0235294, 0.00784314, 1)
 }

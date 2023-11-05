@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c4wnv6um4jt0j"]
+
+[ext_resource type="Shader" path="res://resources/shaders/CircleCut.gdshader" id="1_ju5bs"]
+
+[resource]
+shader = ExtResource("1_ju5bs")
+shader_parameter/radius = 0.5

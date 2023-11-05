@@ -1,6 +1,8 @@
-[gd_resource type="Theme" load_steps=12 format=3 uid="uid://cle8ocb3gsi5d"]
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://cle8ocb3gsi5d"]
 
 [ext_resource type="FontFile" uid="uid://dk54uuvb1uy7u" path="res://resources/fonts/league-spartan/league-spartan-master/LeagueSpartan-Bold.otf" id="1_54uml"]
+[ext_resource type="StyleBox" uid="uid://blerucyqt24jo" path="res://resources/themes/styleboxes/grabber_style.tres" id="1_xqj24"]
+[ext_resource type="StyleBox" uid="uid://tppf5qooemi5" path="res://resources/themes/styleboxes/scroll_style.tres" id="2_nb01d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4d3pc"]
 bg_color = Color(0, 0, 0, 0)
@@ -34,29 +36,6 @@ corner_radius_top_right = 35
 corner_radius_bottom_right = 35
 corner_radius_bottom_left = 35
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_py86a"]
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tejp1"]
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c0i7t"]
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ft1d4"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 20
-border_color = Color(0.8, 0.8, 0.8, 0)
-
 [resource]
 default_font = ExtResource("1_54uml")
 default_font_size = 54
@@ -67,11 +46,15 @@ Button/styles/focus = SubResource("StyleBoxEmpty_82tj3")
 Button/styles/hover = SubResource("StyleBoxEmpty_2mby0")
 Button/styles/normal = SubResource("StyleBoxFlat_kedkl")
 Button/styles/pressed = SubResource("StyleBoxEmpty_1llsf")
-HBoxContainer/constants/separation = 80
+HBoxContainer/constants/separation = 20
+HScrollBar/styles/grabber = ExtResource("1_xqj24")
+HScrollBar/styles/grabber_highlight = ExtResource("1_xqj24")
+HScrollBar/styles/grabber_pressed = ExtResource("1_xqj24")
+HScrollBar/styles/scroll = ExtResource("2_nb01d")
 Label/styles/normal = SubResource("StyleBoxFlat_ma4r2")
 RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
 VBoxContainer/constants/separation = 20
-VScrollBar/styles/grabber = SubResource("StyleBoxFlat_py86a")
-VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_tejp1")
-VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_c0i7t")
-VScrollBar/styles/scroll = SubResource("StyleBoxFlat_ft1d4")
+VScrollBar/styles/grabber = ExtResource("1_xqj24")
+VScrollBar/styles/grabber_highlight = ExtResource("1_xqj24")
+VScrollBar/styles/grabber_pressed = ExtResource("1_xqj24")
+VScrollBar/styles/scroll = ExtResource("2_nb01d")

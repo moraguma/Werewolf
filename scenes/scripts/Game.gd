@@ -6,15 +6,20 @@ class_name Game
 # CONSTANTS
 # --------------------------------------------------------------------------------------------------
 const TRAIT_PRIORITY: Array[String] = [
-	"Trait"
+	"Trait",
+	"Example"
 ]
 
 # Visual -----------------------------------------------------------------------
 const THEME = preload("res://resources/themes/game.tres")
 var NIGHT_COLOR_SCHEME = ColorScheme.new(Color("#8a1471"), Color("#161b57"), Color("#cd3e44"), Color("#140918"), Color("#501c40"), Color("#f4e1fb"))
+var DAY_COLOR_SCHEME = ColorScheme.new(Color("#1b7ccd"), Color("#fed9c9"), Color("#da6600"), Color("#1f0c00"), Color("#fee3c5"), Color("#100602"))
 
 const SUN_SET_POS = Vector2(540, 1664)
 const SUN_MIDDAY_POS = Vector2(540, 128)
+
+# Scenes -----------------------------------------------------------------------
+const LOG_SCENE = preload("res://scenes/Log.tscn")
 
 # --------------------------------------------------------------------------------------------------
 # VARIABLES
@@ -42,24 +47,30 @@ var color_scheme: ColorScheme
 @onready var night_traits = $Screens/Night/Traits
 
 # Day announcements ------------------------------------------------------------
-@onready var day_announcements_control = $Screens/DayAnnouncements
+@onready var announcements_control = $Screens/Announcements
+@onready var announcements_next = $Screens/Announcements/Next
 
 # Discussion -------------------------------------------------------------------
 @onready var discussion_control = $Screens/Discussion
 
 # Voting -----------------------------------------------------------------------
 @onready var voting_control = $Screens/Voting
-
+@onready var voting_start = $Screens/Voting/Start
+@onready var voting_present = $Screens/Voting/Present
+@onready var voting_vote = $Screens/Voting/Vote
 
 
 func _ready():
 	for i in range(3):
 		var test_player = Player.new(preload("res://resources/sprites/players/andre.png"), "André", ColorScheme.new(Color.AQUA, Color.AZURE, Color.BISQUE, Color.CHOCOLATE, Color.CRIMSON, Color.BLACK))
-		var test_traits: Array[Trait] = [ExampleTrait.new(), ExampleTrait.new(), ExampleTrait.new()]
-		test_player.traits = test_traits
+		for j in range(3):
+			test_player.give_trait(ExampleTrait.new())
 		players.append(test_player)
 	
-	for control in [night_control, day_announcements_control, discussion_control, voting_control]:
+	for player in players:
+		player.set_game(self)
+	
+	for control in [night_control, announcements_control, discussion_control, voting_control]:
 		control.theme = THEME
 	color_scheme = NIGHT_COLOR_SCHEME
 	color_scheme.set_colors(sky, sun, mountains, THEME)
@@ -75,9 +86,10 @@ func _process(delta):
 func game_loop():
 	var phases: Array[Callable] = [
 		night,
-		day_announcements,
+		announcements,
 		discussion,
-		voting
+		voting,
+		announcements
 	]
 	
 	while winners == []:
@@ -92,47 +104,67 @@ func game_loop():
 func night():
 	screens.set_phase("NIGHT")
 	sun.set_aim(SUN_SET_POS)
+	set_color_scheme(NIGHT_COLOR_SCHEME)
 	
 	await night_start.display_start()
 	
-	var actions: Array[Callable] = []
+	var actions: Dictionary = {}
 	for player in players:
-		await night_present.present(player)
-		actions.append(await night_traits.choose_action(player))
+		if player.alive:
+			await night_present.present(player)
+			var player_action: Callable = await night_traits.choose_action(player)
+			if player_action != null:
+				var t: Trait = player_action.get_object()
+				if not t.name in actions:
+					actions[t.name] = []
+				actions[t.name].append(player_action)
 	
-	# TODO: Sort by priority
+	for priority in TRAIT_PRIORITY:
+		if priority in actions:
+			for action in actions[priority]:
+				action.call()
 	
-	for action in actions:
-		if action != null:
-			action.call()
+	announcements_control.set_text(TranslationManager.get_translation("day_announcements_tonight"))
 
 
-func day_announcements():
+func announcements():
+	screens.set_phase("ANNOUNCEMENTS")
+	sun.set_aim(SUN_MIDDAY_POS)
+	set_color_scheme(DAY_COLOR_SCHEME)
+	
+	if len(public_log) == 0:
+		var new_log = LOG_SCENE.instantiate()
+		new_log.add_text(TranslationManager.get_translation("announcements_nothing"))
+		public_log.append(new_log)
+	
+	announcements_control.reset()
+	
+	await announcements_next.pressed
 	for log in public_log:
-		# TODO - Create show logic
-		log.show() # Should add log info to a control node in Game
+		announcements_control.add_log(log)
+		await announcements_next.pressed
 	public_log = []
-	
-	# Await player confirmation before ending
 
 
 func discussion():
-	# Open discussion screen
-	# Start timer
-	# Wait until timer ends
-	# Close discussion screen
-	
-	pass
+	screens.set_phase("DISCUSSION")
+	await discussion_control.create_discussion()
 
 
 func voting():
+	screens.set_phase("VOTING")
+	await voting_start.display_start()
+	
+	var votable_players: Array[Player] = get_votable_players()
 	var votes: Dictionary = {}
 	for player in players:
-		var vote: Player = await player.ask_for_vote()
-		if vote != null:
-			if not vote in votes:
-				votes[vote] = 0
-			votes[vote] += 1
+		if player.alive:
+			await voting_present.present(player)
+			var vote: Player = await voting_vote.vote(player, votable_players)
+			if vote != null:
+				if not vote in votes:
+					votes[vote] = 0
+				votes[vote] += 1
 	
 	var max_votes = 0
 	var elected: Array[Player] = []
@@ -144,12 +176,17 @@ func voting():
 			elected.append(player)
 	
 	if len(elected) != 1:
-		# TODO - Show draw screen
-		# TODO - Give player election if they should win on draw
-		pass
+		var draw_log: Log = LOG_SCENE.instantiate()
+		draw_log.add_text(TranslationManager.get_translation("voting_tie"))
+		create_public_log(draw_log)
 	else: 
-		# TODO - Show elected player (elected[0])
-		pass
+		var result_log: Log = LOG_SCENE.instantiate()
+		result_log.add_image(elected[0].icon)
+		result_log.add_text(TranslationManager.get_translation("voting_result") + elected[0].name)
+		create_public_log(result_log)
+		elected[0].win_election()
+	
+	announcements_control.set_text(TranslationManager.get_translation("voting_announcements_start"))
 
 
 func show_winners(winners: Array[Player]):
@@ -162,8 +199,8 @@ func show_winners(winners: Array[Player]):
 # ------------------------------------------------------------------------------
 # PUBLIC METHODS
 # ------------------------------------------------------------------------------
-func create_public_log():
-	pass
+func create_public_log(log):
+	public_log.append(log)
 
 
 func set_color_scheme(color_scheme: ColorScheme):
@@ -177,6 +214,10 @@ func get_conditioned_players(players: Array[Player], condition_name: String, val
 		if player.get(condition_name) == value:
 			conditioned_players.append(player)
 	return conditioned_players
+
+
+func get_votable_players() -> Array[Player]:
+	return get_conditioned_players(players, "votable", true)
 
 
 func get_alive_players() -> Array[Player]:
