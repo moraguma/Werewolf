@@ -4,7 +4,7 @@ extends Resource
 class_name ColorScheme
 
 
-const CHANGE_WEIGHT = 0.01
+const CHANGE_WEIGHT = 0.05
 
 
 var bottom_color: Color

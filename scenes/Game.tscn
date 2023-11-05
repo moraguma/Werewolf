@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://b8tutg4n765i6"]
+[gd_scene load_steps=29 format=3 uid="uid://b8tutg4n765i6"]
 
 [ext_resource type="Script" path="res://scenes/scripts/Game.gd" id="1_aifow"]
 [ext_resource type="Shader" path="res://resources/shaders/DiscreteSunset.gdshader" id="2_ij3oe"]
@@ -22,11 +22,12 @@
 [ext_resource type="Texture2D" uid="uid://g0l5e1r7277v" path="res://resources/sprites/players/andre.png" id="17_tbj37"]
 [ext_resource type="Shader" path="res://resources/shaders/ColorSchemer.gdshader" id="21_ba0ro"]
 [ext_resource type="Script" path="res://scenes/scripts/day_announcements/DayAnnouncements.gd" id="22_e7wtx"]
+[ext_resource type="Script" path="res://scenes/scripts/discussion/Discussion.gd" id="23_tr3y8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3vbwi"]
 shader = ExtResource("2_ij3oe")
-shader_parameter/bottom_color = Color(0.541176, 0.0784314, 0.443137, 1)
-shader_parameter/top_color = Color(0.0862745, 0.105882, 0.341176, 1)
+shader_parameter/bottom_color = Color(0.105882, 0.486275, 0.803922, 1)
+shader_parameter/top_color = Color(0.996078, 0.85098, 0.788235, 1)
 shader_parameter/ray_distance = 0.02
 shader_parameter/ray_width = 0.02
 shader_parameter/ray_length = 0.3
@@ -37,7 +38,7 @@ shader_parameter/total_phases = 6
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h72ot"]
 shader = ExtResource("4_lc0vs")
-shader_parameter/color = Color(0.803922, 0.243137, 0.266667, 1)
+shader_parameter/color = Color(0.854902, 0.4, 0, 1)
 shader_parameter/radius = 0.4
 shader_parameter/ray_distance = 0.05
 shader_parameter/ray_width = 0.05
@@ -79,13 +80,51 @@ script = ExtResource("6_lttx7")
 
 [node name="Mountains" type="Polygon2D" parent="BG"]
 position = Vector2(-12, 0)
-color = Color(0.0784314, 0.0352941, 0.0941176, 1)
+color = Color(0.121569, 0.0470588, 0, 1)
 polygon = PackedVector2Array(67, 1234, 177, 1562, 245, 1501, 431, 1747, 541, 1665, 659, 1715, 751, 1597, 833, 1701, 880, 1597, 915, 1644, 1051, 1284, 1109, 1466, 1101, 1967, -19, 1953, -1.69739, 1479.76)
 
 [node name="Noise" type="ColorRect" parent="BG"]
 material = SubResource("ShaderMaterial_suwo8")
 offset_right = 1080.0
 offset_bottom = 1920.0
+
+[node name="Test" type="Node2D" parent="."]
+visible = false
+
+[node name="TestText" type="RichTextLabel" parent="Test"]
+material = ExtResource("13_neljh")
+clip_contents = false
+custom_minimum_size = Vector2(1080, 0)
+anchors_preset = -1
+anchor_top = 0.270833
+anchor_right = 1.0
+anchor_bottom = 0.270833
+offset_top = 376.0
+offset_right = 1080.0
+offset_bottom = 2296.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("8_oqwei")
+bbcode_enabled = true
+text = "[center]A noite começou! Todos os jogadores fecham os olhos e vão dormir.
+
+O aparelho deve ser passado de jogador em jogador em sentido horário para que cada um realize suas ações noturnas."
+fit_content = true
+
+[node name="TestButton" type="Button" parent="Test"]
+material = ExtResource("13_neljh")
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 165.0
+offset_top = 1687.0
+offset_right = 915.0
+offset_bottom = 1837.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("8_oqwei")
+text = "PRÓXIMO"
 
 [node name="Screens" type="Node2D" parent="."]
 script = ExtResource("4_hx5m5")
@@ -360,7 +399,79 @@ text_code = "day_announcements_next"
 [node name="Discussion" type="Control" parent="Screens"]
 layout_mode = 3
 anchors_preset = 0
+offset_top = 1920.0
+offset_right = 1080.0
+offset_bottom = 3840.0
 theme = ExtResource("8_oqwei")
+script = ExtResource("23_tr3y8")
+
+[node name="Timer" type="Timer" parent="Screens/Discussion"]
+one_shot = true
+
+[node name="Opening" type="RichTextLabel" parent="Screens/Discussion"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 72.0
+offset_bottom = 140.0
+grow_horizontal = 2
+bbcode_enabled = true
+text = "[center]Nem todos são quem dizem ser...
+
+A vila discutirá por um período de tempo sobre os acontecimentos da noite anterior. Após este período, será realizada uma votação para decidir quem será levado à forca..."
+fit_content = true
+script = ExtResource("9_gsk2f")
+text_code = "discussion_explanation"
+
+[node name="TimeText" type="RichTextLabel" parent="Screens/Discussion"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 792.0
+offset_bottom = 1105.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 250
+bbcode_enabled = true
+text = "[center]01:30"
+fit_content = true
+script = ExtResource("9_gsk2f")
+text_code = "discussion_explanation"
+
+[node name="More" type="Button" parent="Screens/Discussion"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = -489.0
+offset_right = -150.0
+offset_bottom = -289.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "+ 30 SEGUNDOS"
+script = ExtResource("10_ovsu1")
+text_code = "discussion_extra"
+
+[node name="Vote" type="Button" parent="Screens/Discussion"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = -257.0
+offset_right = -150.0
+offset_bottom = -57.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "VOTAR"
+script = ExtResource("10_ovsu1")
+text_code = "discussion_vote"
 
 [node name="Voting" type="Control" parent="Screens"]
 layout_mode = 3
@@ -368,3 +479,6 @@ anchors_preset = 0
 theme = ExtResource("8_oqwei")
 
 [connection signal="pressed" from="Screens/Night/Action/Back" to="Screens/Night/Action" method="go_back"]
+[connection signal="timeout" from="Screens/Discussion/Timer" to="Screens/Discussion" method="end"]
+[connection signal="pressed" from="Screens/Discussion/More" to="Screens/Discussion" method="add_time"]
+[connection signal="pressed" from="Screens/Discussion/Vote" to="Screens/Discussion" method="end"]

@@ -13,6 +13,7 @@ const TRAIT_PRIORITY: Array[String] = [
 # Visual -----------------------------------------------------------------------
 const THEME = preload("res://resources/themes/game.tres")
 var NIGHT_COLOR_SCHEME = ColorScheme.new(Color("#8a1471"), Color("#161b57"), Color("#cd3e44"), Color("#140918"), Color("#501c40"), Color("#f4e1fb"))
+var DAY_COLOR_SCHEME = ColorScheme.new(Color("#1b7ccd"), Color("#fed9c9"), Color("#da6600"), Color("#1f0c00"), Color("#fee3c5"), Color("#100602"))
 
 const SUN_SET_POS = Vector2(540, 1664)
 const SUN_MIDDAY_POS = Vector2(540, 128)
@@ -100,6 +101,7 @@ func game_loop():
 func night():
 	screens.set_phase("NIGHT")
 	sun.set_aim(SUN_SET_POS)
+	set_color_scheme(NIGHT_COLOR_SCHEME)
 	
 	await night_start.display_start()
 	
@@ -122,6 +124,7 @@ func night():
 func day_announcements():
 	screens.set_phase("DAY_ANNOUNCEMENTS")
 	sun.set_aim(SUN_MIDDAY_POS)
+	set_color_scheme(DAY_COLOR_SCHEME)
 	
 	if len(public_log) == 0:
 		var new_log = LOG_SCENE.instantiate()
@@ -138,12 +141,8 @@ func day_announcements():
 
 
 func discussion():
-	# Open discussion screen
-	# Start timer
-	# Wait until timer ends
-	# Close discussion screen
-	
-	pass
+	screens.set_phase("DISCUSSION")
+	await discussion_control.create_discussion()
 
 
 func voting():
