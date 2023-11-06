@@ -16,6 +16,7 @@ var traits: Array[Trait] = []
 
 var alive = true
 var votable = true
+var protected = false
 
 
 func _init(param_icon: Texture, param_name: String, param_color_scheme: ColorScheme):
@@ -46,3 +47,12 @@ func win_election():
 	
 	alive = false
 	votable = false
+
+
+func receive_attack():
+	if protected == false:
+		alive = false
+
+
+func reset_actions():
+	protected = false

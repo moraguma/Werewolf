@@ -7,7 +7,10 @@ class_name Game
 # --------------------------------------------------------------------------------------------------
 const TRAIT_PRIORITY: Array[String] = [
 	"Trait",
-	"Example"
+	"SinglePlayerSelection",
+	"Example",
+	"Doctor",
+	"Serial Killer"
 ]
 
 # Visual -----------------------------------------------------------------------
@@ -61,11 +64,17 @@ var color_scheme: ColorScheme
 
 
 func _ready():
-	for i in range(3):
-		var test_player = Player.new(preload("res://resources/sprites/players/andre.png"), "André", ColorScheme.new(Color.AQUA, Color.AZURE, Color.BISQUE, Color.CHOCOLATE, Color.CRIMSON, Color.BLACK))
-		for j in range(3):
-			test_player.give_trait(DoctorTrait.new())
-		players.append(test_player)
+	var p1 = Player.new(preload("res://resources/sprites/players/Andre.png"), "André", ColorScheme.new(Color.AQUA, Color.AZURE, Color.BISQUE, Color.CHOCOLATE, Color.CRIMSON, Color.BLACK))
+	var p2 = Player.new(preload("res://resources/sprites/players/Gustavo.png"), "Gustavo", ColorScheme.new(Color.AQUA, Color.AZURE, Color.BISQUE, Color.CHOCOLATE, Color.CRIMSON, Color.BLACK))
+	var p3 = Player.new(preload("res://resources/sprites/players/Paulinho.png"), "Paulinho", ColorScheme.new(Color.AQUA, Color.AZURE, Color.BISQUE, Color.CHOCOLATE, Color.CRIMSON, Color.BLACK))
+	
+	p1.give_trait(DoctorTrait.new())
+	p2.give_trait(SerialKillerTrait.new())
+	
+	p3.give_trait(DoctorTrait.new())
+	p3.give_trait(SerialKillerTrait.new())
+	
+	players.append_array([p1, p2, p3])
 	
 	for player in players:
 		player.set_game(self)
@@ -107,6 +116,9 @@ func night():
 	set_color_scheme(NIGHT_COLOR_SCHEME)
 	
 	await night_start.display_start()
+	
+	for player in players:
+		player.reset_actions()
 	
 	var actions: Dictionary = {}
 	for player in players:
@@ -152,6 +164,7 @@ func discussion():
 
 
 func voting():
+	# TODO: Treat when there is no one to vote
 	screens.set_phase("VOTING")
 	await voting_start.display_start()
 	
@@ -203,6 +216,10 @@ func create_public_log(new_log):
 	public_log.append(new_log)
 
 
+func create_private_log(new_log):
+	private_log.append(new_log)
+	
+
 func set_color_scheme(new_color_scheme: ColorScheme):
 	new_color_scheme.initialize_colors(self.color_scheme.curr_bottom_color, self.color_scheme.curr_top_color, self.color_scheme.curr_sun_color, self.color_scheme.curr_mountains_color, self.color_scheme.curr_base_color, self.color_scheme.curr_font_color)
 	self.color_scheme = new_color_scheme
@@ -217,7 +234,8 @@ func get_conditioned_players(condition_name: String, value) -> Array[Player]:
 
 
 func get_votable_players() -> Array[Player]:
-	return get_conditioned_players("votable", true)
+	var votable = get_conditioned_players("votable", true)
+	return get_alive_players().filter(func(p): return p not in votable)
 
 
 func get_alive_players() -> Array[Player]:

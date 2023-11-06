@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g0l5e1r7277v"
-path="res://.godot/imported/Andre.png-7501c4288f4e08f95bbd2b5eb46b5fc4.ctex"
+uid="uid://fjd7wsfacjuk"
+path="res://.godot/imported/Gustavo.png-33b22761019cd9690886e15ed0b02c16.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/players/Andre.png"
-dest_files=["res://.godot/imported/Andre.png-7501c4288f4e08f95bbd2b5eb46b5fc4.ctex"]
+source_file="res://resources/sprites/players/Gustavo.png"
+dest_files=["res://.godot/imported/Gustavo.png-33b22761019cd9690886e15ed0b02c16.ctex"]
 
 [params]
 

@@ -11,3 +11,8 @@ func _init():
 
 func action_description():
 	return "cured/protected"
+
+
+## Add public and private log. Perform action on target player.
+func perform_specific_action():
+	player_selected.set("protected", true)
