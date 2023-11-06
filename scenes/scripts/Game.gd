@@ -64,7 +64,7 @@ func _ready():
 	for i in range(3):
 		var test_player = Player.new(preload("res://resources/sprites/players/andre.png"), "André", ColorScheme.new(Color.AQUA, Color.AZURE, Color.BISQUE, Color.CHOCOLATE, Color.CRIMSON, Color.BLACK))
 		for j in range(3):
-			test_player.give_trait(ExampleTrait.new())
+			test_player.give_trait(DoctorTrait.new())
 		players.append(test_player)
 	
 	for player in players:
