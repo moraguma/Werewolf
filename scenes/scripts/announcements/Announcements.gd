@@ -14,5 +14,5 @@ func reset():
 		component.queue_free()
 
 
-func add_log(log: Log):
-	components.add_child(log)
+func add_log(announcementLog: Log):
+	components.add_child(announcementLog)

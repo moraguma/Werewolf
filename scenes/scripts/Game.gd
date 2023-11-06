@@ -73,15 +73,15 @@ func _ready():
 	for control in [night_control, announcements_control, discussion_control, voting_control]:
 		control.theme = THEME
 	color_scheme = NIGHT_COLOR_SCHEME
-	color_scheme.set_colors(sky, sun, mountains, THEME)
+	color_scheme.set_colors(sky, sun, mountains)
 	sun.position = SUN_SET_POS
 	
 	
 	game_loop()
 
 
-func _process(delta):
-	color_scheme.update_colors(sky, sun, mountains, THEME)
+func _process(_delta):
+	color_scheme.update_colors(sky, sun, mountains)
 
 func game_loop():
 	var phases: Array[Callable] = [
@@ -98,7 +98,7 @@ func game_loop():
 			if winners != []:
 				break
 	
-	show_winners(winners)
+	show_winners()
 
 
 func night():
@@ -140,8 +140,8 @@ func announcements():
 	announcements_control.reset()
 	
 	await announcements_next.pressed
-	for log in public_log:
-		announcements_control.add_log(log)
+	for one_log in public_log:
+		announcements_control.add_log(one_log)
 		await announcements_next.pressed
 	public_log = []
 
@@ -189,7 +189,7 @@ func voting():
 	announcements_control.set_text(TranslationManager.get_translation("voting_announcements_start"))
 
 
-func show_winners(winners: Array[Player]):
+func show_winners():
 	# TODO - Show winners
 	# TODO - Show game over screen
 	
@@ -199,16 +199,16 @@ func show_winners(winners: Array[Player]):
 # ------------------------------------------------------------------------------
 # PUBLIC METHODS
 # ------------------------------------------------------------------------------
-func create_public_log(log):
-	public_log.append(log)
+func create_public_log(new_log):
+	public_log.append(new_log)
 
 
-func set_color_scheme(color_scheme: ColorScheme):
-	color_scheme.initialize_colors(self.color_scheme.curr_bottom_color, self.color_scheme.curr_top_color, self.color_scheme.curr_sun_color, self.color_scheme.curr_mountains_color, self.color_scheme.curr_base_color, self.color_scheme.curr_font_color)
-	self.color_scheme = color_scheme
+func set_color_scheme(new_color_scheme: ColorScheme):
+	new_color_scheme.initialize_colors(self.color_scheme.curr_bottom_color, self.color_scheme.curr_top_color, self.color_scheme.curr_sun_color, self.color_scheme.curr_mountains_color, self.color_scheme.curr_base_color, self.color_scheme.curr_font_color)
+	self.color_scheme = new_color_scheme
 
 
-func get_conditioned_players(players: Array[Player], condition_name: String, value) -> Array[Player]:
+func get_conditioned_players(condition_name: String, value) -> Array[Player]:
 	var conditioned_players: Array[Player] = []
 	for player in players:
 		if player.get(condition_name) == value:
@@ -217,12 +217,12 @@ func get_conditioned_players(players: Array[Player], condition_name: String, val
 
 
 func get_votable_players() -> Array[Player]:
-	return get_conditioned_players(players, "votable", true)
+	return get_conditioned_players("votable", true)
 
 
 func get_alive_players() -> Array[Player]:
-	return get_conditioned_players(players, "alive", true)
+	return get_conditioned_players("alive", true)
 
 
 func get_dead_players() -> Array[Player]:
-	return get_conditioned_players(players, "alive", false)
+	return get_conditioned_players("alive", false)

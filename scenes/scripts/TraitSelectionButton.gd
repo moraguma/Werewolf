@@ -14,8 +14,8 @@ var t: Trait
 @onready var trait_name: RichTextLabel = $TraitName
 
 
-func setup(t: Trait):
-	self.t = t
+func setup(newTrait: Trait):
+	t = newTrait
 	
 	button.texture_normal = t.icon
 	button.texture_pressed = t.icon

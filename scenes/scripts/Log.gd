@@ -21,6 +21,7 @@ func _ready():
 
 
 func add_action_given_log(sender: Player, receiver: Player, action: String):
+	print("Using action given log...")
 	add_image(sender.icon)
 	add_text(sender.name + " " + action + " " + receiver.name)	# TODO: add translation json to action
 	add_image(receiver.icon)

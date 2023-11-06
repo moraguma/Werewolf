@@ -16,7 +16,7 @@ const ADD_TIME = 30
 var active = false
 
 
-func _process(delta):
+func _process(_delta):
 	if active:
 		var time = ceil(timer.time_left)
 		var minutes = floor(time / 60)

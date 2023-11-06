@@ -1,4 +1,4 @@
-extends PlayerSelectionTrait
+extends SinglePlayerSelectionTrait
 
 
 class_name ExampleTrait

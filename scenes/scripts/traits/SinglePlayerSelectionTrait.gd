@@ -1,7 +1,7 @@
 extends Trait
 
 
-class_name PlayerSelectionTrait
+class_name SinglePlayerSelectionTrait
 
 
 var selection_button: PlayerSelectionButton
