@@ -12,5 +12,5 @@ func _process(_delta):
 		position = lerp(position, aim, MOVE_WEIGHT)
 
 
-func set_aim(newAim):
-	self.aim = newAim
+func set_aim(param_aim):
+	self.aim = param_aim
