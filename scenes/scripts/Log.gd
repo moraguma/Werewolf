@@ -20,6 +20,18 @@ func _ready():
 		components.add_child(component)
 
 
+func add_full_action_given_log(sender: Player, receiver: Player, action: String):
+	add_image(sender.icon)
+	var text = "%s (%s) %s %s (%s)"
+	add_text(text % [sender.name, sender.traits, action, receiver.name, receiver.traits])	# TODO: add translation json to action
+	add_image(receiver.icon)
+
+
+func add_player_received_action_log(target: Player, action: String):
+	add_image(target.icon)
+	add_text(target.name + " " + action)	# TODO: add translation json to action
+
+
 func add_text(text: String):
 	var new_text: Label = Label.new()
 	new_text.material = COLOR_SCHEME_MATERIAL

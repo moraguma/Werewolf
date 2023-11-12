@@ -11,6 +11,6 @@ var type: Type
 var info
 
 
-func _init(type: Type, info):
-	self.type = type
-	self.info = info
+func _init(param_type: Type, param_info):
+	self.type = param_type
+	self.info = param_info

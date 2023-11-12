@@ -16,8 +16,8 @@ var p: Player
 @onready var count: Label = $Count
 
 
-func setup(p: Player):
-	self.p = p
+func setup(param_p: Player):
+	p = param_p
 	
 	player_icon.texture = p.icon
 	

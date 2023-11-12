@@ -25,7 +25,7 @@ func display_elements(elements: Array, element_selection_button_scene, max_eleme
 
 
 func new_hbox() -> HBoxContainer:
-	var new_hbox = HBoxContainer.new()
-	new_hbox.alignment = BoxContainer.ALIGNMENT_CENTER
-	add_child(new_hbox)
-	return new_hbox
+	var new_hbox_obj = HBoxContainer.new()
+	new_hbox_obj.alignment = BoxContainer.ALIGNMENT_CENTER
+	add_child(new_hbox_obj)
+	return new_hbox_obj

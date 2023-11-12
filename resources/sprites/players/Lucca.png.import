@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g0l5e1r7277v"
-path="res://.godot/imported/Andre.png-7501c4288f4e08f95bbd2b5eb46b5fc4.ctex"
+uid="uid://dq0irv7okhlns"
+path="res://.godot/imported/Lucca.png-94dd437ca575d5dbc23aaff829aa7548.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/players/Andre.png"
-dest_files=["res://.godot/imported/Andre.png-7501c4288f4e08f95bbd2b5eb46b5fc4.ctex"]
+source_file="res://resources/sprites/players/Lucca.png"
+dest_files=["res://.godot/imported/Lucca.png-94dd437ca575d5dbc23aaff829aa7548.ctex"]
 
 [params]
 

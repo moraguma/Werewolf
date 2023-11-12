@@ -16,12 +16,13 @@ var traits: Array[Trait] = []
 
 var alive = true
 var votable = true
+var protected = false
 
 
-func _init(icon: Texture, name: String, color_scheme: ColorScheme):
-	self.icon = icon
-	self.name = name
-	self.color_scheme = color_scheme
+func _init(param_icon: Texture, param_name: String, param_color_scheme: ColorScheme):
+	self.icon = param_icon
+	self.name = param_name
+	self.color_scheme = param_color_scheme
 
 
 func give_trait(t: Trait):
@@ -31,11 +32,11 @@ func give_trait(t: Trait):
 	traits.append(t)
 
 
-func set_game(game: Game):
-	self.game = game
+func set_game(new_game: Game):
+	self.game = new_game
 	
 	for t in traits:
-		t.game = game
+		t.game = new_game
 
 
 func win_election():
@@ -46,3 +47,12 @@ func win_election():
 	
 	alive = false
 	votable = false
+
+
+func receive_attack():
+	if protected == false:
+		alive = false
+
+
+func reset_actions():
+	protected = false

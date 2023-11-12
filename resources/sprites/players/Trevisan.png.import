@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dkka650l7s7kx"
-path="res://.godot/imported/andre.jpg-d571a542b2f76a31565908685f86e4e0.ctex"
+uid="uid://exefrhh0qplg"
+path="res://.godot/imported/Trevisan.png-d0b41165757aec00a6546d1e4f75d4dc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/players/andre.jpg"
-dest_files=["res://.godot/imported/andre.jpg-d571a542b2f76a31565908685f86e4e0.ctex"]
+source_file="res://resources/sprites/players/Trevisan.png"
+dest_files=["res://.godot/imported/Trevisan.png-d0b41165757aec00a6546d1e4f75d4dc.ctex"]
 
 [params]
 

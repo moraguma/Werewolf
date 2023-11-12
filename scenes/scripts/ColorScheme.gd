@@ -22,13 +22,13 @@ var curr_base_color: Color
 var curr_font_color: Color
 
 
-func _init(bottom_color: Color, top_color: Color, sun_color: Color, mountains_color: Color, base_color: Color, font_color: Color):
-	self.bottom_color = bottom_color
-	self.top_color = top_color
-	self.sun_color = sun_color
-	self.mountains_color = mountains_color
-	self.base_color = base_color
-	self.font_color = font_color
+func _init(bottom: Color, top: Color, sun: Color, mountains: Color, base: Color, font: Color):
+	self.bottom_color = bottom
+	self.top_color = top
+	self.sun_color = sun
+	self.mountains_color = mountains
+	self.base_color = base
+	self.font_color = font
 
 
 func initialize_colors(bottom: Color, top: Color, sun: Color, mountains: Color, base: Color, font: Color):
@@ -40,7 +40,7 @@ func initialize_colors(bottom: Color, top: Color, sun: Color, mountains: Color, 
 	curr_font_color = font
 
 
-func update_targets(sky: Sprite2D, sun: Sprite2D, mountains: Polygon2D, theme: Theme):
+func update_targets(sky: Sprite2D, sun: Sprite2D, mountains: Polygon2D):
 	sky.material.set_shader_parameter("bottom_color", curr_bottom_color)
 	sky.material.set_shader_parameter("top_color", curr_top_color)
 	sun.material.set_shader_parameter("color", curr_sun_color)
@@ -50,7 +50,7 @@ func update_targets(sky: Sprite2D, sun: Sprite2D, mountains: Polygon2D, theme: T
 	RenderingServer.global_shader_parameter_set("font", curr_font_color)
 
 
-func update_colors(sky: Sprite2D, sun: Sprite2D, mountains: Polygon2D, theme: Theme):
+func update_colors(sky: Sprite2D, sun: Sprite2D, mountains: Polygon2D):
 	curr_bottom_color = lerp(curr_bottom_color, bottom_color, CHANGE_WEIGHT)
 	curr_top_color = lerp(curr_top_color, top_color, CHANGE_WEIGHT)
 	curr_sun_color = lerp(curr_sun_color, sun_color, CHANGE_WEIGHT)
@@ -58,10 +58,10 @@ func update_colors(sky: Sprite2D, sun: Sprite2D, mountains: Polygon2D, theme: Th
 	curr_base_color = lerp(curr_base_color, base_color, CHANGE_WEIGHT)
 	curr_font_color = lerp(curr_font_color, font_color, CHANGE_WEIGHT)
 	
-	update_targets(sky, sun, mountains, theme)
+	update_targets(sky, sun, mountains)
 
 
-func set_colors(sky: Sprite2D, sun: Sprite2D, mountains: Polygon2D, theme: Theme):
+func set_colors(sky: Sprite2D, sun: Sprite2D, mountains: Polygon2D):
 	curr_bottom_color = bottom_color
 	curr_top_color = top_color
 	curr_sun_color = sun_color
@@ -69,4 +69,4 @@ func set_colors(sky: Sprite2D, sun: Sprite2D, mountains: Polygon2D, theme: Theme
 	curr_base_color = base_color
 	curr_font_color = font_color
 	
-	update_targets(sky, sun, mountains, theme)
+	update_targets(sky, sun, mountains)

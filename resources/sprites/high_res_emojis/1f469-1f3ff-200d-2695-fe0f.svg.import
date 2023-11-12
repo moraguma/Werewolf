@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g0l5e1r7277v"
-path="res://.godot/imported/Andre.png-7501c4288f4e08f95bbd2b5eb46b5fc4.ctex"
+uid="uid://dkshvgmuynrnw"
+path="res://.godot/imported/1f469-1f3ff-200d-2695-fe0f.svg-5f01d16410dc551241e6f6cad064c57e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/players/Andre.png"
-dest_files=["res://.godot/imported/Andre.png-7501c4288f4e08f95bbd2b5eb46b5fc4.ctex"]
+source_file="res://resources/sprites/high_res_emojis/1f469-1f3ff-200d-2695-fe0f.svg"
+dest_files=["res://.godot/imported/1f469-1f3ff-200d-2695-fe0f.svg-5f01d16410dc551241e6f6cad064c57e.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

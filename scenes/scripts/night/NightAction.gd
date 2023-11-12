@@ -32,15 +32,23 @@ func go_back():
 
 
 func display_alive_players() -> Array:
-	var players_scroll: PlayersScroll = PLAYERS_SCROLL_SCENE.instantiate()
-	components.add_child(players_scroll)
-	return players_scroll.display_players(game.get_alive_players())
+	return display_players(game.get_alive_players())
+
+
+func display_alive_players_except_owner(owner_player: Player) -> Array:
+	var all = game.get_alive_players()
+	all.erase(owner_player)
+	return display_players(all)
 
 
 func display_dead_players() -> Array:
+	return display_players(game.get_dead_players())
+
+
+func display_players(players: Array[Player]) -> Array:
 	var players_scroll: PlayersScroll = PLAYERS_SCROLL_SCENE.instantiate()
 	components.add_child(players_scroll)
-	return players_scroll.display_players(game.get_dead_players())
+	return players_scroll.display_players(players)	
 
 
 func add_button(text: String) -> Button:
