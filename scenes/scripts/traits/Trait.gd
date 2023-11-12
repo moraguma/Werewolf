@@ -26,4 +26,3 @@ func display_actions(action_display: ActionDisplay):
 func handle_interrupt(interrupt: Interrupt):
 	if interrupt.type == Interrupt.Type.EXIT:
 		finish_action.emit(null)
-

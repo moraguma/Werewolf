@@ -5,14 +5,18 @@ class_name DoctorTrait
 
 
 func _init():
-	name = "Doctor"
+	name = TranslationManager.get_translation("doctor_name")
 	icon = preload("res://resources/sprites/high_res_emojis/Doctor.png")
 
 
-func action_description():
-	return "cured/protected"
+## Performs action
+func _perform_action():
+	player_selected.protected = true
 
 
-## Add public and private log. Perform action on target player.
-func perform_specific_action():
-	player_selected.set("protected", true)
+func _get_action_description() -> String:
+	return TranslationManager.get_translation("doctor_action_description")
+
+
+func _get_available_player_buttons(action_display: ActionDisplay):
+	return action_display.display_alive_players_except_owner(owner)

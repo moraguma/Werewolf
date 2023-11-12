@@ -24,5 +24,12 @@
 	"voting_tie": "A votação terminou em um empate",
 	"voting_result": "A vila votou em ",
 
-	"died_at_gallows": " morreu na forca"
+	"died_at_gallows": " morreu na forca",
+
+	"serial_killer_name": "Assassino em Série",
+	"serial_killer_action_description": "matou",
+	"serial_killer_public_action": "foi morto pelo Assassino em Série!",
+
+	"doctor_name": "Médico",
+	"doctor_action_description": "protegeu"
 }

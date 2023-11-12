@@ -49,9 +49,10 @@ func win_election():
 	votable = false
 
 
-func receive_attack():
+func receive_attack() -> bool:
 	if protected == false:
 		alive = false
+	return not alive
 
 
 func reset_actions():

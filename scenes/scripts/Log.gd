@@ -29,7 +29,7 @@ func add_full_action_given_log(sender: Player, receiver: Player, action: String)
 
 func add_player_received_action_log(target: Player, action: String):
 	add_image(target.icon)
-	add_text(target.name + " " + action)	# TODO: add translation json to action
+	add_text(target.name + " " + action) # TODO: add translation json to action
 
 
 func add_text(text: String):

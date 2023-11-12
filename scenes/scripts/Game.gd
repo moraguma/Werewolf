@@ -5,12 +5,12 @@ class_name Game
 # --------------------------------------------------------------------------------------------------
 # CONSTANTS
 # --------------------------------------------------------------------------------------------------
-const TRAIT_PRIORITY: Array[String] = [
+@onready var TRAIT_PRIORITY: Array[String] = [
 	"Trait",
 	"SinglePlayerSelection",
 	"Example",
-	"Doctor",
-	"Serial Killer"
+	TranslationManager.get_translation("doctor_name"),
+	TranslationManager.get_translation("serial_killer_name")
 ]
 
 # Visual -----------------------------------------------------------------------
@@ -127,9 +127,10 @@ func night():
 			var player_action: Callable = await night_traits.choose_action(player)
 			if player_action != null:
 				var t: Trait = player_action.get_object()
-				if not t.name in actions:
-					actions[t.name] = []
-				actions[t.name].append(player_action)
+				var key = t.name
+				if not key in actions:
+					actions[key] = []
+				actions[key].append(player_action)
 	
 	for priority in TRAIT_PRIORITY:
 		if priority in actions:
@@ -235,7 +236,7 @@ func get_conditioned_players(condition_name: String, value) -> Array[Player]:
 
 func get_votable_players() -> Array[Player]:
 	var votable = get_conditioned_players("votable", true)
-	return get_alive_players().filter(func(p): return p not in votable)
+	return get_alive_players().filter(func(p): return p in votable)
 
 
 func get_alive_players() -> Array[Player]:
