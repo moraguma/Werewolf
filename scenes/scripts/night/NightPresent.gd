@@ -11,6 +11,7 @@ const RELEASE_TIME = 1.0
 @onready var next_button = $Next
 
 
+## Starts the current turn. Displays player without traits
 func present(player: Player):
 	show()
 	

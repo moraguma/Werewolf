@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://dw8rieod11wsc"]
 
-[ext_resource type="Texture2D" uid="uid://g0l5e1r7277v" path="res://resources/sprites/players/andre.png" id="1_uug81"]
+[ext_resource type="Texture2D" uid="uid://g0l5e1r7277v" path="res://resources/sprites/players/Andre.png" id="1_uug81"]
 [ext_resource type="Script" path="res://scenes/scripts/PlayerButton.gd" id="1_wt8jl"]
 [ext_resource type="Theme" uid="uid://cle8ocb3gsi5d" path="res://resources/themes/game.tres" id="2_1dqeo"]
 [ext_resource type="Material" uid="uid://c4wnv6um4jt0j" path="res://resources/shaders/materials/CircleCut.tres" id="2_wjoyd"]

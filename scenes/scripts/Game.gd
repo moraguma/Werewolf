@@ -31,7 +31,7 @@ var public_log: Array[Log] = []
 var private_log: Array[Log] = []
 
 var players: Array[Player] = []
-var winners: Array[Player] = []
+var winners: Array[Winner] = []
 
 var color_scheme: ColorScheme
 
@@ -62,19 +62,23 @@ var color_scheme: ColorScheme
 @onready var voting_present = $Screens/Voting/Present
 @onready var voting_vote = $Screens/Voting/Vote
 
+# Victory ----------------------------------------------------------------------
+@onready var victory = $Screens/Victory
+
 
 func _ready():
+	# Test setup
 	var p1 = Player.new(preload("res://resources/sprites/players/Andre.png"), "André", ColorScheme.new(Color.AQUA, Color.AZURE, Color.BISQUE, Color.CHOCOLATE, Color.CRIMSON, Color.BLACK))
 	var p2 = Player.new(preload("res://resources/sprites/players/Gustavo.png"), "Gustavo", ColorScheme.new(Color.AQUA, Color.AZURE, Color.BISQUE, Color.CHOCOLATE, Color.CRIMSON, Color.BLACK))
 	var p3 = Player.new(preload("res://resources/sprites/players/Paulinho.png"), "Paulinho", ColorScheme.new(Color.AQUA, Color.AZURE, Color.BISQUE, Color.CHOCOLATE, Color.CRIMSON, Color.BLACK))
 	
 	p1.give_trait(DoctorTrait.new())
+	
 	p2.give_trait(SerialKillerTrait.new())
 	
 	p3.give_trait(DoctorTrait.new())
-	p3.give_trait(SerialKillerTrait.new())
 	
-	players.append_array([p1, p2, p3])
+	players.append_array([p1, p2])
 	
 	for player in players:
 		player.set_game(self)
@@ -95,17 +99,13 @@ func _process(_delta):
 func game_loop():
 	var phases: Array[Callable] = [
 		night,
-		announcements,
 		discussion,
-		voting,
-		announcements
 	]
 	
-	while winners == []:
-		for phase in phases:
-			await phase.call()
-			if winners != []:
-				break
+	var pos = 0
+	while winners == [] and len(get_alive_players()) > 1:
+		await phases[pos].call()
+		pos = 0 if pos + 1 >= len(phases) else pos + 1
 	
 	show_winners()
 
@@ -138,6 +138,7 @@ func night():
 				action.call()
 	
 	announcements_control.set_text(TranslationManager.get_translation("day_announcements_tonight"))
+	await announcements()
 
 
 func announcements():
@@ -157,11 +158,16 @@ func announcements():
 		announcements_control.add_log(one_log)
 		await announcements_next.pressed
 	public_log = []
+	
+	for player: Player in players:
+		for t: Trait in player.traits:
+			t.try_win_condition(players)
 
 
 func discussion():
 	screens.set_phase("DISCUSSION")
 	await discussion_control.create_discussion()
+	await voting()
 
 
 func voting():
@@ -201,13 +207,13 @@ func voting():
 		elected[0].win_election()
 	
 	announcements_control.set_text(TranslationManager.get_translation("voting_announcements_start"))
+	await announcements()
 
 
 func show_winners():
-	# TODO - Show winners
-	# TODO - Show game over screen
+	screens.set_phase("VICTORY")
 	
-	pass
+	victory.display_victory(winners)
 
 
 # ------------------------------------------------------------------------------
@@ -219,7 +225,12 @@ func create_public_log(new_log):
 
 func create_private_log(new_log):
 	private_log.append(new_log)
-	
+
+
+func add_winner(winner: Winner):
+	winners.append(winner)
+	pass
+
 
 func set_color_scheme(new_color_scheme: ColorScheme):
 	new_color_scheme.initialize_colors(self.color_scheme.curr_bottom_color, self.color_scheme.curr_top_color, self.color_scheme.curr_sun_color, self.color_scheme.curr_mountains_color, self.color_scheme.curr_base_color, self.color_scheme.curr_font_color)

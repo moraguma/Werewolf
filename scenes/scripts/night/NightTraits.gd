@@ -9,6 +9,7 @@ signal action_selected(action)
 @onready var action_display: ActionDisplay = $"../Action"
 
 
+## Player will choose between their traits and then follow trait specific logic
 func choose_action(player: Player) -> Callable:
 	show()
 	

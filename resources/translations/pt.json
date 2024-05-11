@@ -26,9 +26,13 @@
 
 	"died_at_gallows": " morreu na forca",
 
+	"game_over": "[center]Fim de jogo",
+	"victory": "[center]Vitória!",
+
 	"serial_killer_name": "Assassino em Série",
 	"serial_killer_action_description": "matou",
 	"serial_killer_public_action": "foi morto pelo Assassino em Série!",
+	"serial_killer_victory": "matou todo mundo!",
 
 	"doctor_name": "Médico",
 	"doctor_action_description": "protegeu"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://b8tutg4n765i6"]
+[gd_scene load_steps=32 format=3 uid="uid://b8tutg4n765i6"]
 
 [ext_resource type="Script" path="res://scenes/scripts/Game.gd" id="1_aifow"]
 [ext_resource type="Shader" path="res://resources/shaders/DiscreteSunset.gdshader" id="2_ij3oe"]
@@ -19,12 +19,13 @@
 [ext_resource type="Material" uid="uid://bdkajv7h71teu" path="res://resources/shaders/materials/ColorSchemer.tres" id="13_neljh"]
 [ext_resource type="Script" path="res://scenes/scripts/night/NightAction.gd" id="14_yyuvd"]
 [ext_resource type="Shader" path="res://resources/shaders/CircleCut.gdshader" id="16_n151q"]
-[ext_resource type="Texture2D" uid="uid://g0l5e1r7277v" path="res://resources/sprites/players/andre.png" id="17_tbj37"]
+[ext_resource type="Texture2D" uid="uid://g0l5e1r7277v" path="res://resources/sprites/players/Andre.png" id="17_tbj37"]
 [ext_resource type="Shader" path="res://resources/shaders/ColorSchemer.gdshader" id="21_ba0ro"]
 [ext_resource type="Script" path="res://scenes/scripts/announcements/Announcements.gd" id="22_mt4yb"]
 [ext_resource type="Script" path="res://scenes/scripts/discussion/Discussion.gd" id="23_tr3y8"]
 [ext_resource type="Script" path="res://scenes/scripts/voting/Vote.gd" id="24_1i3u3"]
 [ext_resource type="PackedScene" uid="uid://vwwflvfvcivs" path="res://scenes/PlayersScroll.tscn" id="25_k8sq3"]
+[ext_resource type="Script" path="res://scenes/scripts/victory/Victory.gd" id="26_6q6gc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3vbwi"]
 shader = ExtResource("2_ij3oe")
@@ -643,6 +644,61 @@ grow_vertical = 0
 text = "PULAR"
 script = ExtResource("10_ovsu1")
 text_code = "voting_skip"
+
+[node name="Victory" type="Control" parent="Screens"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1080.0
+offset_bottom = 1920.0
+theme = ExtResource("8_oqwei")
+script = ExtResource("26_6q6gc")
+
+[node name="Title" type="RichTextLabel" parent="Screens/Victory"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 72.0
+offset_bottom = 140.0
+grow_horizontal = 2
+bbcode_enabled = true
+text = "[center]Hoje a noite..."
+fit_content = true
+
+[node name="Scroll" type="ScrollContainer" parent="Screens/Victory"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 50.0
+offset_top = -778.0
+offset_right = -50.0
+offset_bottom = 724.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Components" type="VBoxContainer" parent="Screens/Victory/Scroll"]
+custom_minimum_size = Vector2(980, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="Next" type="Button" parent="Screens/Victory"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = -193.0
+offset_right = -150.0
+offset_bottom = -43.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "PRÓXIMO"
+script = ExtResource("10_ovsu1")
+text_code = "announcements_next"
 
 [connection signal="pressed" from="Screens/Night/Action/Back" to="Screens/Night/Action" method="go_back"]
 [connection signal="timeout" from="Screens/Discussion/Timer" to="Screens/Discussion" method="end"]

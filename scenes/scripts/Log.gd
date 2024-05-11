@@ -6,6 +6,9 @@ class_name Log
 
 const COLOR_SCHEME_MATERIAL = preload("res://resources/shaders/materials/ColorSchemer.tres")
 const CIRCLE_CUT_MATERIAL = preload("res://resources/shaders/materials/CircleCut.tres")
+const LOG_SCENE = preload("res://scenes/Log.tscn")
+
+const IMAGE_SIZE = Vector2(150.0, 150.0)
 
 var EMPTY_STYLE: StyleBox = StyleBoxEmpty.new()
 const LABEL_FONT_SIZE = 40
@@ -42,9 +45,24 @@ func add_text(text: String):
 	prepared_components.append(new_text)
 
 
-func add_image(tex: Texture):
+func add_image(tex: Texture2D, circle_cut=true):
 	var new_texture_rect: TextureRect = TextureRect.new()
-	new_texture_rect.material = CIRCLE_CUT_MATERIAL
+	new_texture_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	new_texture_rect.custom_minimum_size = IMAGE_SIZE
+	if circle_cut:
+		new_texture_rect.material = CIRCLE_CUT_MATERIAL
 	new_texture_rect.texture = tex
 	
 	prepared_components.append(new_texture_rect)
+
+
+# --------------------------------------------------------------------------------------------------
+# TEMPLATES
+# --------------------------------------------------------------------------------------------------
+## Returns log that starts with player and trait icon
+static func win_template(t: Trait, translation_code: String):
+	var log: Log = LOG_SCENE.instantiate()
+	log.add_image(t.owner.icon)
+	log.add_image(t.icon, false)
+	log.add_text(TranslationManager.get_translation(translation_code))
+	return log

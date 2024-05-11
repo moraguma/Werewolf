@@ -49,11 +49,14 @@ func win_election():
 	votable = false
 
 
+## Tries to attack player. Returns whether or not the attack was successful
 func receive_attack() -> bool:
 	if protected == false:
 		alive = false
 	return not alive
 
 
+## Called at the start of the night. Should reset any variable that might have
+## been set the night before
 func reset_actions():
 	protected = false

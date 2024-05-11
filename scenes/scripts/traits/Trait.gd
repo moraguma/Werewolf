@@ -26,3 +26,8 @@ func display_actions(action_display: ActionDisplay):
 func handle_interrupt(interrupt: Interrupt):
 	if interrupt.type == Interrupt.Type.EXIT:
 		finish_action.emit(null)
+
+
+## If win condition has been met, adds a Winner to game
+func try_win_condition(players: Array[Player]):
+	pass

@@ -17,7 +17,7 @@
 [ext_resource type="Script" path="res://scenes/scripts/TranslatableButton.gd" id="14_mijn0"]
 [ext_resource type="Script" path="res://scenes/scripts/night/NightPresent.gd" id="15_x4sw3"]
 [ext_resource type="Shader" path="res://resources/shaders/CircleCut.gdshader" id="16_hdbpk"]
-[ext_resource type="Texture2D" uid="uid://g0l5e1r7277v" path="res://resources/sprites/players/andre.png" id="17_atley"]
+[ext_resource type="Texture2D" uid="uid://g0l5e1r7277v" path="res://resources/sprites/players/Andre.png" id="17_atley"]
 [ext_resource type="Script" path="res://scenes/scripts/night/NightTraits.gd" id="18_apajv"]
 [ext_resource type="Script" path="res://scenes/scripts/night/TraitsContainer.gd" id="19_gv6wj"]
 [ext_resource type="Script" path="res://scenes/scripts/night/NightAction.gd" id="20_lf3kr"]
