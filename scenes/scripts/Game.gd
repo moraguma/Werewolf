@@ -9,7 +9,7 @@ class_name Game
 	"Trait",
 	"SinglePlayerSelection",
 	"Example",
-	TranslationManager.get_translation("doctor_name"),
+	TranslationManager.get_translation("healer_name"),
 	TranslationManager.get_translation("serial_killer_name")
 ]
 
@@ -72,11 +72,11 @@ func _ready():
 	var p2 = Player.new(preload("res://resources/sprites/players/Gustavo.png"), "Gustavo", ColorScheme.new(Color.AQUA, Color.AZURE, Color.BISQUE, Color.CHOCOLATE, Color.CRIMSON, Color.BLACK))
 	var p3 = Player.new(preload("res://resources/sprites/players/Paulinho.png"), "Paulinho", ColorScheme.new(Color.AQUA, Color.AZURE, Color.BISQUE, Color.CHOCOLATE, Color.CRIMSON, Color.BLACK))
 	
-	p1.give_trait(DoctorTrait.new())
+	p1.give_trait(HealerTrait.new())
 	
 	p2.give_trait(SerialKillerTrait.new())
 	
-	p3.give_trait(DoctorTrait.new())
+	p3.give_trait(HealerTrait.new())
 	
 	players.append_array([p1, p2])
 	

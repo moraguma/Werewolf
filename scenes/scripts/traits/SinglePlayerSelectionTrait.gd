@@ -10,16 +10,10 @@ var player_selected: Player
 # --------------------------------------------------------------------------------------------------
 # VIRTUAL METHODS
 # --------------------------------------------------------------------------------------------------
-## Must set name and icon for this specific trait
-func _init():
-	name = "SinglePlayerSelection"
-	icon = preload("res://resources/sprites/high_res_emojis/moon.png")
-
-
 ## Returns action description to be used in private logs. Will be created in the
 ## form A [description] B
 func _get_action_description() -> String:
-	return "selected"
+	return TranslationManager.get_translation(name + "_action_description")
 
 
 ## Returns the available player buttons

@@ -34,6 +34,6 @@
 	"serial_killer_public_action": "foi morto pelo Assassino em Série!",
 	"serial_killer_victory": "matou todo mundo!",
 
-	"doctor_name": "Médico",
-	"doctor_action_description": "protegeu"
+	"healer_name": "Curandeiro",
+	"healer_action_description": "protegeu"
 }
