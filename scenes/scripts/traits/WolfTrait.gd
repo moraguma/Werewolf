@@ -1,21 +1,21 @@
 extends SinglePlayerSelectionTrait
 
 
-class_name DoctorTrait
+class_name WolfTrait
 
 
 func _init():
-	name = TranslationManager.get_translation("doctor_name")
-	icon = preload("res://resources/sprites/high_res_emojis/Doctor.png")
+	name = TranslationManager.get_translation("wolf_name")
+	icon = preload("res://resources/sprites/high_res_emojis/wolf.svg")
 
 
 ## Performs action
 func _perform_action():
-	player_selected.protected = true
+	player_selected = true
 
 
 func _get_action_description() -> String:
-	return TranslationManager.get_translation("doctor_action_description")
+	return TranslationManager.get_translation("wolf_action_description")
 
 
 func _get_available_player_buttons(action_display: ActionDisplay):

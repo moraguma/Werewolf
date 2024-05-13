@@ -1,0 +1,708 @@
+[gd_scene load_steps=32 format=3 uid="uid://b8tutg4n765i6"]
+
+[ext_resource type="Script" path="res://scenes/scripts/Game.gd" id="1_aifow"]
+[ext_resource type="Shader" path="res://resources/shaders/DiscreteSunset.gdshader" id="2_ij3oe"]
+[ext_resource type="Texture2D" uid="uid://bfy5ewt8i4hu1" path="res://resources/sprites/white.png" id="3_0hgii"]
+[ext_resource type="Texture2D" uid="uid://b3y0heffkokaf" path="res://resources/sprites/whitesquare.png" id="4_16ib2"]
+[ext_resource type="Script" path="res://scenes/scripts/Screens.gd" id="4_hx5m5"]
+[ext_resource type="Shader" path="res://resources/shaders/Sun.gdshader" id="4_lc0vs"]
+[ext_resource type="Script" path="res://scenes/scripts/night/NightStart.gd" id="5_24oft"]
+[ext_resource type="Shader" path="res://resources/shaders/Wiggle.gdshader" id="6_6175e"]
+[ext_resource type="Script" path="res://scenes/scripts/FollowElement.gd" id="6_lttx7"]
+[ext_resource type="Texture2D" uid="uid://b8ho2wukpvnn4" path="res://resources/sprites/blue_noise.png" id="7_opimw"]
+[ext_resource type="Theme" uid="uid://cle8ocb3gsi5d" path="res://resources/themes/game.tres" id="8_oqwei"]
+[ext_resource type="Script" path="res://scenes/scripts/TranslatableRichTextLabel.gd" id="9_gsk2f"]
+[ext_resource type="Script" path="res://scenes/scripts/TranslatableButton.gd" id="10_ovsu1"]
+[ext_resource type="Script" path="res://scenes/scripts/night/NightPresent.gd" id="11_g2a60"]
+[ext_resource type="Script" path="res://scenes/scripts/night/NightTraits.gd" id="12_lopa0"]
+[ext_resource type="Script" path="res://scenes/scripts/night/TraitsContainer.gd" id="13_hedpp"]
+[ext_resource type="Material" uid="uid://bdkajv7h71teu" path="res://resources/shaders/materials/ColorSchemer.tres" id="13_neljh"]
+[ext_resource type="Script" path="res://scenes/scripts/night/NightAction.gd" id="14_yyuvd"]
+[ext_resource type="Shader" path="res://resources/shaders/CircleCut.gdshader" id="16_n151q"]
+[ext_resource type="Texture2D" uid="uid://g0l5e1r7277v" path="res://resources/sprites/players/Andre.png" id="17_tbj37"]
+[ext_resource type="Shader" path="res://resources/shaders/ColorSchemer.gdshader" id="21_ba0ro"]
+[ext_resource type="Script" path="res://scenes/scripts/announcements/Announcements.gd" id="22_mt4yb"]
+[ext_resource type="Script" path="res://scenes/scripts/discussion/Discussion.gd" id="23_tr3y8"]
+[ext_resource type="Script" path="res://scenes/scripts/voting/Vote.gd" id="24_1i3u3"]
+[ext_resource type="PackedScene" uid="uid://vwwflvfvcivs" path="res://scenes/PlayersScroll.tscn" id="25_k8sq3"]
+[ext_resource type="Script" path="res://scenes/scripts/victory/Victory.gd" id="26_6q6gc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3vbwi"]
+shader = ExtResource("2_ij3oe")
+shader_parameter/bottom_color = Color(0.105882, 0.486275, 0.803922, 1)
+shader_parameter/top_color = Color(0.996078, 0.85098, 0.788235, 1)
+shader_parameter/ray_distance = 0.02
+shader_parameter/ray_width = 0.02
+shader_parameter/ray_length = 0.3
+shader_parameter/ray_spacing = 0.5
+shader_parameter/time_scale = 0.1
+shader_parameter/level_time_diff = 0.1
+shader_parameter/total_phases = 6
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h72ot"]
+shader = ExtResource("4_lc0vs")
+shader_parameter/color = Color(0.854902, 0.4, 0, 1)
+shader_parameter/radius = 0.4
+shader_parameter/ray_distance = 0.05
+shader_parameter/ray_width = 0.05
+shader_parameter/total_rays = 4
+shader_parameter/time_scale = 0.2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_suwo8"]
+shader = ExtResource("6_6175e")
+shader_parameter/strength = 3.0
+shader_parameter/uv_scaling = 0.5
+shader_parameter/movement_direction = Vector2(1, 0)
+shader_parameter/movement_speed = 0.02
+shader_parameter/NOISE_TEXTURE = ExtResource("7_opimw")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i7lyr"]
+shader = ExtResource("16_n151q")
+shader_parameter/radius = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bdlhc"]
+shader = ExtResource("21_ba0ro")
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_aifow")
+
+[node name="BG" type="Node2D" parent="."]
+
+[node name="Sky" type="Sprite2D" parent="BG"]
+material = SubResource("ShaderMaterial_3vbwi")
+position = Vector2(540, 960)
+rotation = 3.14159
+texture = ExtResource("3_0hgii")
+
+[node name="Sun" type="Sprite2D" parent="BG"]
+material = SubResource("ShaderMaterial_h72ot")
+position = Vector2(540, 128)
+rotation = 3.14159
+texture = ExtResource("4_16ib2")
+script = ExtResource("6_lttx7")
+
+[node name="Mountains" type="Polygon2D" parent="BG"]
+position = Vector2(-12, 0)
+color = Color(0.121569, 0.0470588, 0, 1)
+polygon = PackedVector2Array(67, 1234, 177, 1562, 245, 1501, 431, 1747, 541, 1665, 659, 1715, 751, 1597, 833, 1701, 880, 1597, 915, 1644, 1051, 1284, 1109, 1466, 1101, 1967, -19, 1953, -1.69739, 1479.76)
+
+[node name="Noise" type="ColorRect" parent="BG"]
+material = SubResource("ShaderMaterial_suwo8")
+offset_right = 1080.0
+offset_bottom = 1920.0
+
+[node name="Test" type="Node2D" parent="."]
+visible = false
+
+[node name="TestText" type="RichTextLabel" parent="Test"]
+material = ExtResource("13_neljh")
+clip_contents = false
+custom_minimum_size = Vector2(1080, 0)
+anchors_preset = -1
+anchor_top = 0.270833
+anchor_right = 1.0
+anchor_bottom = 0.270833
+offset_top = 376.0
+offset_right = 1080.0
+offset_bottom = 2296.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("8_oqwei")
+bbcode_enabled = true
+text = "[center]A noite começou! Todos os jogadores fecham os olhos e vão dormir.
+
+O aparelho deve ser passado de jogador em jogador em sentido horário para que cada um realize suas ações noturnas."
+fit_content = true
+
+[node name="TestButton" type="Button" parent="Test"]
+material = ExtResource("13_neljh")
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 165.0
+offset_top = 1687.0
+offset_right = 915.0
+offset_bottom = 1837.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("8_oqwei")
+text = "PRÓXIMO"
+
+[node name="Screens" type="Node2D" parent="."]
+script = ExtResource("4_hx5m5")
+
+[node name="Night" type="Control" parent="Screens"]
+custom_minimum_size = Vector2(5, 0.045)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1080.0
+offset_bottom = 1920.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("8_oqwei")
+
+[node name="Start" type="Control" parent="Screens/Night"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("5_24oft")
+
+[node name="Explanation" type="RichTextLabel" parent="Screens/Night/Start"]
+material = ExtResource("13_neljh")
+clip_contents = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.270833
+anchor_right = 1.0
+anchor_bottom = 0.270833
+offset_left = 25.0
+offset_top = -364.5
+offset_right = -25.0
+offset_bottom = 364.5
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center]A noite começou! Todos os jogadores fecham os olhos e vão dormir.
+
+O aparelho deve ser passado de jogador em jogador em sentido horário para que cada um realize suas ações noturnas."
+fit_content = true
+script = ExtResource("9_gsk2f")
+text_code = "night_start"
+metadata/_edit_use_anchors_ = true
+
+[node name="Next" type="Button" parent="Screens/Night/Start"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = -465.0
+offset_right = -150.0
+offset_bottom = -315.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "COMEÇAR"
+script = ExtResource("10_ovsu1")
+text_code = "night_start_accept"
+
+[node name="Present" type="Control" parent="Screens/Night"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("11_g2a60")
+
+[node name="PlayerIcon" type="TextureRect" parent="Screens/Night/Present"]
+material = SubResource("ShaderMaterial_i7lyr")
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 202.0
+offset_right = 150.0
+offset_bottom = 502.0
+grow_horizontal = 2
+texture = ExtResource("17_tbj37")
+
+[node name="PlayerName" type="RichTextLabel" parent="Screens/Night/Present"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -410.0
+offset_bottom = -342.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 70
+bbcode_enabled = true
+text = "[center]André"
+fit_content = true
+
+[node name="Next" type="Button" parent="Screens/Night/Present"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = -465.0
+offset_right = -150.0
+offset_bottom = -315.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "JOGAR"
+script = ExtResource("10_ovsu1")
+text_code = "night_present_accept"
+
+[node name="Timer" type="Timer" parent="Screens/Night/Present"]
+
+[node name="Traits" type="Control" parent="Screens/Night"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("12_lopa0")
+
+[node name="PlayerName" type="RichTextLabel" parent="Screens/Night/Traits"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -876.0
+offset_bottom = -788.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 70
+bbcode_enabled = true
+text = "[center]André"
+fit_content = true
+
+[node name="TraitsScroll" type="ScrollContainer" parent="Screens/Night/Traits"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 50.0
+offset_top = -642.0
+offset_right = -50.0
+offset_bottom = 525.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("8_oqwei")
+
+[node name="TraitsContainer" type="VBoxContainer" parent="Screens/Night/Traits/TraitsScroll"]
+custom_minimum_size = Vector2(980, 0)
+layout_mode = 2
+alignment = 1
+script = ExtResource("13_hedpp")
+
+[node name="Action" type="Control" parent="Screens/Night"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("8_oqwei")
+script = ExtResource("14_yyuvd")
+
+[node name="Back" type="Button" parent="Screens/Night/Action"]
+material = SubResource("ShaderMaterial_bdlhc")
+layout_mode = 2
+offset_left = 50.0
+offset_top = 102.0
+offset_right = 330.0
+offset_bottom = 225.0
+text = "Back"
+
+[node name="Scroll" type="ScrollContainer" parent="Screens/Night/Action"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 50.0
+offset_top = -642.0
+offset_right = -50.0
+offset_bottom = 905.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Components" type="VBoxContainer" parent="Screens/Night/Action/Scroll"]
+custom_minimum_size = Vector2(980, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="Announcements" type="Control" parent="Screens"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1080.0
+offset_right = 2160.0
+offset_bottom = 1920.0
+theme = ExtResource("8_oqwei")
+script = ExtResource("22_mt4yb")
+
+[node name="Opening" type="RichTextLabel" parent="Screens/Announcements"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 72.0
+offset_bottom = 140.0
+grow_horizontal = 2
+bbcode_enabled = true
+text = "[center]Hoje a noite..."
+fit_content = true
+script = ExtResource("9_gsk2f")
+text_code = "day_announcements_tonight"
+
+[node name="Scroll" type="ScrollContainer" parent="Screens/Announcements"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 50.0
+offset_top = -778.0
+offset_right = -50.0
+offset_bottom = 724.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Components" type="VBoxContainer" parent="Screens/Announcements/Scroll"]
+custom_minimum_size = Vector2(980, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="Next" type="Button" parent="Screens/Announcements"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = -193.0
+offset_right = -150.0
+offset_bottom = -43.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "PRÓXIMO"
+script = ExtResource("10_ovsu1")
+text_code = "announcements_next"
+
+[node name="Discussion" type="Control" parent="Screens"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 1920.0
+offset_right = 1080.0
+offset_bottom = 3840.0
+theme = ExtResource("8_oqwei")
+script = ExtResource("23_tr3y8")
+
+[node name="Timer" type="Timer" parent="Screens/Discussion"]
+one_shot = true
+
+[node name="Opening" type="RichTextLabel" parent="Screens/Discussion"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 72.0
+offset_bottom = 140.0
+grow_horizontal = 2
+bbcode_enabled = true
+text = "[center]Nem todos são quem dizem ser...
+
+A vila discutirá por um período de tempo sobre os acontecimentos da noite anterior. Após este período, será realizada uma votação para decidir quem será levado à forca..."
+fit_content = true
+script = ExtResource("9_gsk2f")
+text_code = "discussion_explanation"
+
+[node name="TimeText" type="RichTextLabel" parent="Screens/Discussion"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 792.0
+offset_bottom = 1105.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 250
+bbcode_enabled = true
+text = "[center]01:30"
+fit_content = true
+script = ExtResource("9_gsk2f")
+text_code = "discussion_explanation"
+
+[node name="More" type="Button" parent="Screens/Discussion"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = -489.0
+offset_right = -150.0
+offset_bottom = -289.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "+ 30 SEGUNDOS"
+script = ExtResource("10_ovsu1")
+text_code = "discussion_extra"
+
+[node name="Vote" type="Button" parent="Screens/Discussion"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = -257.0
+offset_right = -150.0
+offset_bottom = -57.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "VOTAR"
+script = ExtResource("10_ovsu1")
+text_code = "discussion_vote"
+
+[node name="Voting" type="Control" parent="Screens"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -1920.0
+offset_right = 1080.0
+theme = ExtResource("8_oqwei")
+
+[node name="Start" type="Control" parent="Screens/Voting"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("5_24oft")
+
+[node name="Explanation" type="RichTextLabel" parent="Screens/Voting/Start"]
+material = ExtResource("13_neljh")
+clip_contents = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.270833
+anchor_right = 1.0
+anchor_bottom = 0.270833
+offset_left = 25.0
+offset_top = -364.5
+offset_right = -25.0
+offset_bottom = 364.5
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center]Hora de votar! Um jogador deverá ser mandado para a forca
+
+O aparelho deve ser passado de jogador em jogador em sentido horário para que cada um vote secretamente em quem deve ir para a forca"
+fit_content = true
+script = ExtResource("9_gsk2f")
+text_code = "voting_start"
+metadata/_edit_use_anchors_ = true
+
+[node name="Next" type="Button" parent="Screens/Voting/Start"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = -193.0
+offset_right = -150.0
+offset_bottom = -43.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "COMEÇAR"
+script = ExtResource("10_ovsu1")
+text_code = "voting_start_accept"
+
+[node name="Present" type="Control" parent="Screens/Voting"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("11_g2a60")
+
+[node name="PlayerIcon" type="TextureRect" parent="Screens/Voting/Present"]
+material = SubResource("ShaderMaterial_i7lyr")
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 202.0
+offset_right = 150.0
+offset_bottom = 502.0
+grow_horizontal = 2
+texture = ExtResource("17_tbj37")
+
+[node name="PlayerName" type="RichTextLabel" parent="Screens/Voting/Present"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -410.0
+offset_bottom = -342.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 70
+bbcode_enabled = true
+text = "[center]André"
+fit_content = true
+
+[node name="Next" type="Button" parent="Screens/Voting/Present"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = -465.0
+offset_right = -150.0
+offset_bottom = -315.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "JOGAR"
+script = ExtResource("10_ovsu1")
+text_code = "night_present_accept"
+
+[node name="Timer" type="Timer" parent="Screens/Voting/Present"]
+
+[node name="Vote" type="Control" parent="Screens/Voting"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("24_1i3u3")
+
+[node name="PlayersScroll" parent="Screens/Voting/Vote" instance=ExtResource("25_k8sq3")]
+layout_mode = 1
+offset_left = 50.0
+offset_top = -744.0
+offset_right = -50.0
+offset_bottom = 423.0
+
+[node name="Vote" type="Button" parent="Screens/Voting/Vote"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = -489.0
+offset_right = -150.0
+offset_bottom = -289.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "VOTAR"
+script = ExtResource("10_ovsu1")
+text_code = "voting_vote"
+
+[node name="Skip" type="Button" parent="Screens/Voting/Vote"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = -257.0
+offset_right = -150.0
+offset_bottom = -57.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "PULAR"
+script = ExtResource("10_ovsu1")
+text_code = "voting_skip"
+
+[node name="Victory" type="Control" parent="Screens"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1080.0
+offset_bottom = 1920.0
+theme = ExtResource("8_oqwei")
+script = ExtResource("26_6q6gc")
+
+[node name="Title" type="RichTextLabel" parent="Screens/Victory"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 72.0
+offset_bottom = 140.0
+grow_horizontal = 2
+bbcode_enabled = true
+text = "[center]Hoje a noite..."
+fit_content = true
+
+[node name="Scroll" type="ScrollContainer" parent="Screens/Victory"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 50.0
+offset_top = -778.0
+offset_right = -50.0
+offset_bottom = 724.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Components" type="VBoxContainer" parent="Screens/Victory/Scroll"]
+custom_minimum_size = Vector2(980, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="Next" type="Button" parent="Screens/Victory"]
+material = ExtResource("13_neljh")
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = -193.0
+offset_right = -150.0
+offset_bottom = -43.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "PRÓXIMO"
+script = ExtResource("10_ovsu1")
+text_code = "announcements_next"
+
+[connection signal="pressed" from="Screens/Night/Action/Back" to="Screens/Night/Action" method="go_back"]
+[connection signal="timeout" from="Screens/Discussion/Timer" to="Screens/Discussion" method="end"]
+[connection signal="pressed" from="Screens/Discussion/More" to="Screens/Discussion" method="add_time"]
+[connection signal="pressed" from="Screens/Discussion/Vote" to="Screens/Discussion" method="end"]
+[connection signal="pressed" from="Screens/Voting/Vote/Vote" to="Screens/Voting/Vote" method="confirm_vote"]
+[connection signal="pressed" from="Screens/Voting/Vote/Skip" to="Screens/Voting/Vote" method="skip_vote"]

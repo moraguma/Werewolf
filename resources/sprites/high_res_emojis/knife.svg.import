@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgmbkmuvf3kxb"
-path="res://.godot/imported/knife.png-f00b739d6a47d665cc516788abcc0621.ctex"
+uid="uid://ca2kdnulo4kqk"
+path="res://.godot/imported/knife.svg-cd55bfbe9a70fde647d5d7549cde8d8f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/high_res_emojis/knife.png"
-dest_files=["res://.godot/imported/knife.png-f00b739d6a47d665cc516788abcc0621.ctex"]
+source_file="res://resources/sprites/high_res_emojis/knife.svg"
+dest_files=["res://.godot/imported/knife.svg-cd55bfbe9a70fde647d5d7549cde8d8f.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

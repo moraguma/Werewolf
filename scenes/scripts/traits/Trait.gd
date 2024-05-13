@@ -12,8 +12,14 @@ const LOG_SCENE = preload("res://scenes/Log.tscn")
 
 var game: Game
 var owner: Player
-var name = "Trait"
+var display_name = "Trait"
 var icon: Texture
+@export var name = "Trait"
+
+## Must set name and icon for this specific trait
+func _init():
+	display_name = TranslationManager.get_translation("%s_name" % name)
+	icon = load("res://resources/sprites/high_res_emojis/%s.svg" % name)
 
 ## Displays possible trait actions. Should emit the signal finish_action with
 ## the selected action once the action has been selected
