@@ -10,7 +10,8 @@ class_name Game
 	"SinglePlayerSelection",
 	"Example",
 	TranslationManager.get_translation("healer_name"),
-	TranslationManager.get_translation("serial_killer_name")
+	TranslationManager.get_translation("serial_killer_name"),
+	TranslationManager.get_translation("wolf_name")
 ]
 
 # Visual -----------------------------------------------------------------------
@@ -77,8 +78,9 @@ func _ready():
 	p2.give_trait(SerialKillerTrait.new())
 	
 	p3.give_trait(HealerTrait.new())
+	p3.give_trait(WolfTrait.new())
 	
-	players.append_array([p1, p2])
+	players.append_array([p1, p2, p3])
 	
 	for player in players:
 		player.set_game(self)
@@ -137,6 +139,10 @@ func night():
 			for action in actions[priority]:
 				action.call()
 	
+	var wolves_kill: Player = WolfVotingSystem.get_most_voted_player()
+	if wolves_kill != null:
+		wolves_kill.receive_attack()
+		
 	announcements_control.set_text(TranslationManager.get_translation("day_announcements_tonight"))
 	await announcements()
 
