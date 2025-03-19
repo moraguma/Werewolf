@@ -4,7 +4,7 @@ class_name WolfVotingSystem
 static var votes = {}
 
 ## Registra um voto de um lobo
-static func register_vote(wolf, target):
+static func register_vote(target):
 	if not votes[target]:
 		votes[target] = 0
 	

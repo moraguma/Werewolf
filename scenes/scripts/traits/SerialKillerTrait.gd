@@ -3,6 +3,9 @@ extends SinglePlayerSelectionTrait
 
 class_name SerialKillerTrait
 
+func _init():
+	name = "serial_killer"
+
 ## Performs action
 func _perform_action():
 	if player_selected.receive_attack():

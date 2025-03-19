@@ -3,15 +3,16 @@ extends SinglePlayerSelectionTrait
 
 class_name WolfTrait
 
+var wolf_paw
 
 func _init():
-	name = TranslationManager.get_translation("wolf_name")
-	icon = preload("res://resources/sprites/high_res_emojis/wolf.svg")
+	name = "wolf"
+	wolf_paw = preload("res://resources/sprites/high_res_emojis/wolf_paw.png")
 
 
 ## Executa a ação do lobo (votar em quem matar)
 func _perform_action():
-	WolfVotingSystem.register_vote(owner, player_selected)
+	WolfVotingSystem.register_vote(player_selected)
 
 func _get_available_player_buttons(action_display: ActionDisplay):
 	var buttons = action_display.display_alive_players_except_owner(owner)
@@ -23,7 +24,7 @@ func _get_available_player_buttons(action_display: ActionDisplay):
 
 		# Add an icon of a wolf paw if the player is also a wolf
 		if player.has_trait(WolfTrait):
-			button.add_icon("res://icons/wolf_paw.png")
+			button.add_icon(wolf_paw)
 
 		# Add a small number showing how many votes the player has
 		if vote_count > 0:

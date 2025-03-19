@@ -3,8 +3,7 @@ extends SinglePlayerSelectionTrait
 
 class_name HealerTrait
 
-func _ready():
-	set("name", "healer")
+func _init():
 	name = "healer"
 
 ## Performs action

@@ -14,7 +14,7 @@ var game: Game
 var owner: Player
 var display_name = "Trait"
 var icon: Texture
-@export var name = "Trait"
+var name = "Trait"
 
 ## Must set name and icon for this specific trait
 func _init():
