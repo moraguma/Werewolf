@@ -5,6 +5,7 @@ class_name HealerTrait
 
 func _init():
 	name = "healer"
+	super()
 
 ## Performs action
 func _perform_action():

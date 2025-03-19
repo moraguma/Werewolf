@@ -8,6 +8,7 @@ var wolf_paw
 func _init():
 	name = "wolf"
 	wolf_paw = preload("res://resources/sprites/high_res_emojis/wolf_paw.png")
+	super()
 
 
 ## Executa a ação do lobo (votar em quem matar)
@@ -19,7 +20,7 @@ func _get_available_player_buttons(action_display: ActionDisplay):
 	var vote_counts = WolfVotingSystem.get_votes()
 
 	for button in buttons:
-		var player = button.player
+		var player: Player = button.player
 		var vote_count = vote_counts.get(player, 0)
 
 		# Add an icon of a wolf paw if the player is also a wolf

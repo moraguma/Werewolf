@@ -34,7 +34,7 @@ window/handheld/orientation=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/emojis-for-godot/plugin.cfg", "res://addons/jam_essentials/plugin.cfg")
+enabled=PackedStringArray("res://addons/copilot/plugin.cfg", "res://addons/emojis-for-godot/plugin.cfg", "res://addons/jam_essentials/plugin.cfg")
 
 [rendering]
 

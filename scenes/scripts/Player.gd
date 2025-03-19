@@ -30,7 +30,12 @@ func give_trait(t: Trait):
 	t.game = game
 	
 	traits.append(t)
-
+	
+func has_trait(t: Script) -> bool:
+	for x in traits:
+		if x.get_script() == t:
+			return true
+	return false
 
 func set_game(new_game: Game):
 	self.game = new_game

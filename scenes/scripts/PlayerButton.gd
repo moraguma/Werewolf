@@ -7,7 +7,7 @@ class_name PlayerSelectionButton
 signal selected_player(p: Player)
 
 
-var p: Player
+var player: Player
 
 
 @onready var player_icon: TextureRect = $PlayerIcon
@@ -17,15 +17,15 @@ var p: Player
 
 
 func setup(param_p: Player):
-	p = param_p
+	player = param_p
 	
-	player_icon.texture = p.icon
+	player_icon.texture = player.icon
 	
-	player_name.text = "[center]" + p.name
+	player_name.text = "[center]" + player.name
 
 
 func pressed():
-	selected_player.emit(p)
+	selected_player.emit(player)
 
 
 func disable():

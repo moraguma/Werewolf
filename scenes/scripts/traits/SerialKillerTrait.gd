@@ -5,6 +5,7 @@ class_name SerialKillerTrait
 
 func _init():
 	name = "serial_killer"
+	super()
 
 ## Performs action
 func _perform_action():

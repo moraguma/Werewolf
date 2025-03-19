@@ -71,18 +71,17 @@ func _ready():
 	# Test setup
 	var p1 = Player.new(preload("res://resources/sprites/players/Andre.png"), "André", ColorScheme.new(Color.AQUA, Color.AZURE, Color.BISQUE, Color.CHOCOLATE, Color.CRIMSON, Color.BLACK))
 	var p2 = Player.new(preload("res://resources/sprites/players/Gustavo.png"), "Gustavo", ColorScheme.new(Color.AQUA, Color.AZURE, Color.BISQUE, Color.CHOCOLATE, Color.CRIMSON, Color.BLACK))
-	#var p3 = Player.new(preload("res://resources/sprites/players/Paulinho.png"), "Paulinho", ColorScheme.new(Color.AQUA, Color.AZURE, Color.BISQUE, Color.CHOCOLATE, Color.CRIMSON, Color.BLACK))
+	var p3 = Player.new(preload("res://resources/sprites/players/Paulinho.png"), "Paulinho", ColorScheme.new(Color.AQUA, Color.AZURE, Color.BISQUE, Color.CHOCOLATE, Color.CRIMSON, Color.BLACK))
 	
 	p1.give_trait(HealerTrait.new())
 	
 	p2.give_trait(SerialKillerTrait.new())
+	p2.give_trait(WolfTrait.new())
 	
-	#p3.give_trait(HealerTrait.new())
-	#p3.give_trait(WolfTrait.new())
+	p3.give_trait(HealerTrait.new())
+	p3.give_trait(WolfTrait.new())
 	
-	#players.append_array([p1, p2, p3])
-	
-	players.append_array([p1, p2])
+	players.append_array([p1, p2, p3])
 	
 	for player in players:
 		player.set_game(self)
